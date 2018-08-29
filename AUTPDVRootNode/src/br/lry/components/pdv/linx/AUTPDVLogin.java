@@ -8,7 +8,7 @@ import com.borland.silktest.jtf.common.types.MouseButton;
 import com.borland.silktest.jtf.common.types.Point;
 import com.borland.silktest.jtf.Desktop;
 
-public class AUTPDVLogin {
+public class AUTPDVLogin extends AUTPDVBaseComponent{
 
 	private Desktop desktop = new Desktop();
 
@@ -20,8 +20,9 @@ public class AUTPDVLogin {
 
 	@Test
 	public void autLogin() {
-		desktop.<Control>find("LINX - P2K").click(MouseButton.LEFT, new Point(210, 704));
-		desktop.<Control>find("LINX - P2K").click(MouseButton.LEFT, new Point(210, 704));
+		Control pdv = desktop.<Control>find("PDV");
+		System.out.println(pdv.getText());
+		autPDVFechadoParcial();
 	}
 
 }

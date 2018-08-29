@@ -20,5 +20,6 @@
 	<classpathentry kind="lib" path="Resources/AUTSilk/com.borland.silktest.silk4j.jar"/>
 	<classpathentry kind="lib" path="Resources/AUTSilk/silktest-jtf-nodeps.jar"/>
 	<classpathentry kind="lib" path="Resources/SITEF/jclisitef.jar"/>
+	<classpathentry kind="src" path="Verifications"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
