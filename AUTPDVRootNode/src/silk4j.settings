@@ -12,12 +12,24 @@
   </applicationConfiguration>
   <agentOptions>
     <entry>
+      <string>OPT_OBJECT_ENABLED_TIMEOUT</string>
+      <int>1200000</int>
+    </entry>
+    <entry>
+      <string>OPT_APPREADY_TIMEOUT</string>
+      <int>1200000</int>
+    </entry>
+    <entry>
       <string>OPT_TRUELOG_SCREENSHOT_MODE</string>
       <int>2</int>
     </entry>
     <entry>
       <string>OPT_ASSET_NAMESPACE</string>
       <string>AUTPDVRootNode</string>
+    </entry>
+    <entry>
+      <string>OPT_PLAYBACK_STATUS_DIALOG_SCREENSHOTS</string>
+      <boolean>true</boolean>
     </entry>
   </agentOptions>
 </recorderProject>
