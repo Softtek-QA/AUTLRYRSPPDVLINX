@@ -47,7 +47,7 @@ public class AUTPDVBaseComponent {
 				return "3";
 			}
 			case VOLTAR_CANCELAR:{
-				return "<#Escape>";
+				return "<#Esc>";
 			}
 			}
 			return super.toString();
@@ -239,18 +239,7 @@ public class AUTPDVBaseComponent {
 				}
 			});			
 
-			autPDVStatusRealizarConferencia();
 			autPDVEnviarComando(AUT_PDV_OPTIONS.VOLTAR_CANCELAR);
-
-			autPDVExecFuncSincronizada(new AUTPDVFunctionsSyncronized() {			
-				@Override
-				public boolean autStartPDVFunction() {
-					// TODO Auto-generated method stub
-					return autPDVStatusFechadoParcial();
-				}
-			});			
-			
-			autPDVStatusFechadoParcial();
 			
 			return true;
 		}

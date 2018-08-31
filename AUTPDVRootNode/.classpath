@@ -20,6 +20,28 @@
 	<classpathentry kind="lib" path="Resources/AUTSilk/com.borland.silktest.silk4j.jar"/>
 	<classpathentry kind="lib" path="Resources/AUTSilk/silktest-jtf-nodeps.jar"/>
 	<classpathentry kind="lib" path="Resources/SITEF/jclisitef.jar"/>
+	<classpathentry kind="lib" path="Resources/AUTJAVALIB/com-sun-tools-visualvm-api-caching.jar"/>
+	<classpathentry kind="lib" path="Resources/AUTJAVALIB/com-sun-tools-visualvm-application-views.jar"/>
+	<classpathentry kind="lib" path="Resources/AUTJAVALIB/com-sun-tools-visualvm-application.jar"/>
+	<classpathentry kind="lib" path="Resources/AUTJAVALIB/com-sun-tools-visualvm-attach.jar"/>
+	<classpathentry kind="lib" path="Resources/AUTJAVALIB/com-sun-tools-visualvm-charts.jar"/>
+	<classpathentry kind="lib" path="Resources/AUTJAVALIB/com-sun-tools-visualvm-core.jar"/>
+	<classpathentry kind="lib" path="Resources/AUTJAVALIB/com-sun-tools-visualvm-coredump.jar"/>
+	<classpathentry kind="lib" path="Resources/AUTJAVALIB/com-sun-tools-visualvm-heapdump.jar"/>
+	<classpathentry kind="lib" path="Resources/AUTJAVALIB/com-sun-tools-visualvm-host-remote.jar"/>
+	<classpathentry kind="lib" path="Resources/AUTJAVALIB/com-sun-tools-visualvm-host-views.jar"/>
+	<classpathentry kind="lib" path="Resources/AUTJAVALIB/com-sun-tools-visualvm-host.jar"/>
+	<classpathentry kind="lib" path="Resources/AUTJAVALIB/com-sun-tools-visualvm-jmx.jar"/>
+	<classpathentry kind="lib" path="Resources/AUTJAVALIB/com-sun-tools-visualvm-jvm.jar"/>
+	<classpathentry kind="lib" path="Resources/AUTJAVALIB/com-sun-tools-visualvm-jvmstat.jar"/>
+	<classpathentry kind="lib" path="Resources/AUTJAVALIB/com-sun-tools-visualvm-modules-appui.jar"/>
+	<classpathentry kind="lib" path="Resources/AUTJAVALIB/com-sun-tools-visualvm-profiler.jar"/>
+	<classpathentry kind="lib" path="Resources/AUTJAVALIB/com-sun-tools-visualvm-profiling.jar"/>
+	<classpathentry kind="lib" path="Resources/AUTJAVALIB/com-sun-tools-visualvm-sa.jar"/>
+	<classpathentry kind="lib" path="Resources/AUTJAVALIB/com-sun-tools-visualvm-sampler.jar"/>
+	<classpathentry kind="lib" path="Resources/AUTJAVALIB/com-sun-tools-visualvm-threaddump.jar"/>
+	<classpathentry kind="lib" path="Resources/AUTJAVALIB/com-sun-tools-visualvm-tools.jar"/>
+	<classpathentry kind="lib" path="Resources/AUTJAVALIB/com-sun-tools-visualvm-uisupport.jar"/>
 	<classpathentry kind="src" path="Verifications"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

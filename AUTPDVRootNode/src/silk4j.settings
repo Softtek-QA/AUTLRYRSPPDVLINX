@@ -27,9 +27,5 @@
       <string>OPT_ASSET_NAMESPACE</string>
       <string>AUTPDVRootNode</string>
     </entry>
-    <entry>
-      <string>OPT_PLAYBACK_STATUS_DIALOG_SCREENSHOTS</string>
-      <boolean>true</boolean>
-    </entry>
   </agentOptions>
 </recorderProject>
