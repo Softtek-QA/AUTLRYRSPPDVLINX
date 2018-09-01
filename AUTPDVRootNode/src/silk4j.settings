@@ -2,10 +2,10 @@
 <recorderProject version="18.5">
   <applicationConfiguration>
     <moduleNamePattern>*\java.exe</moduleNamePattern>
-    <commandLinePattern>-noverify -Xms256m -Xmx512m -Duser.language=pt -Duser.region=BR -XX:MaxPermSize=512m -XX:+HeapDumpOnOutOfMemoryError com.csi.components.pointOfSale.StartupPDV . spServer 21 p2k k2p ConfComponentePDV.properties .\config\ /z</commandLinePattern>
+    <commandLinePattern>-noverify -Xms256m -Xmx512m -Duser.language=pt -Duser.region=BR -XX:+HeapDumpOnOutOfMemoryError com.csi.components.pointOfSale.StartupPDV . spServer 21 p2k k2p ConfComponentePDV.properties .\config\ /z</commandLinePattern>
     <baseStateInfo>
-      <executable>C:\p2k\bin\pdv.bat</executable>
-      <commandLineArguments>-noverify -Xms256m -Xmx512m -Duser.language=pt -Duser.region=BR -XX:MaxPermSize=512m -XX:+HeapDumpOnOutOfMemoryError com.csi.components.pointOfSale.StartupPDV . spServer 21 p2k k2p ConfComponentePDV.properties .\config\ /z</commandLineArguments>
+      <executable>C:\p2k\JRE\bin\java.exe</executable>
+      <commandLineArguments>-noverify -Xms256m -Xmx512m -Duser.language=pt -Duser.region=BR -XX:+HeapDumpOnOutOfMemoryError com.csi.components.pointOfSale.StartupPDV . spServer 21 p2k k2p ConfComponentePDV.properties .\config\ /z</commandLineArguments>
       <workingDirectory>C:\p2k\bin</workingDirectory>
       <locator>PDV</locator>
     </baseStateInfo>

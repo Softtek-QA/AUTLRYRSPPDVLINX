@@ -5,6 +5,7 @@ package br.lry.components.pdv.linx;
 
 import com.borland.silktest.jtf.BaseState;
 import com.borland.silktest.jtf.Control;
+import com.borland.silktest.jtf.Desktop;
 
 import br.lry.components.pdv.linx.AUTPDVBaseComponent.AUTPDVFunctionsSyncronized;
 import br.lry.components.pdv.linx.AUTPDVBaseComponent.AUT_PDV_OPTIONS;
@@ -71,8 +72,11 @@ public class AUTPDVBaseComponent {
 	 */
 	public boolean autStartPDV() {
 		try {
+			AUT_AGENT_SILK4J = new Desktop();
+			AUT_AGENT_SILK4J_CONFIGURATION = new BaseState();
+			
 			System.out.println("PDV: AUT INFO: INICIALIZANDO LINX-PDV");
-			AUT_AGENT_SILK4J_CONFIGURATION.setExecutable("C:/p2k/bin/pdv.bat");
+			//AUT_AGENT_SILK4J_CONFIGURATION.setExecutable("C:/p2k/bin/pdv.bat");
 			AUT_AGENT_SILK4J.executeBaseState(AUT_AGENT_SILK4J_CONFIGURATION);			
 			return true;
 		}

@@ -16,19 +16,9 @@ import com.borland.silktest.jtf.Desktop;
 
 public class AUTPDVLogin extends AUTPDVBaseComponent{
 
-	private Desktop desktop = new Desktop();
-
-	@Before
-	public void baseState() {
-		BaseState baseState = new BaseState();
-		baseState.execute(desktop);
-	}
-
 	public boolean teste() {return true;}
 	@Test
 	public void autLogin() {
-		Control pdv = desktop.<Control>find("PDV");
-		System.out.println(pdv.getText());	
 		autStartLogin("951028487", "951028487");
 		autPDVLogout("51028487", "51028487");
 		autPDVFecharAplicacao();		
