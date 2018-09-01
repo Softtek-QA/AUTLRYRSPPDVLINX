@@ -29,7 +29,9 @@ public class AUTPDVBaseComponent {
 		ENTER,
 		ENTRADA_OPERADOR,
 		SAIDA_OPERADOR,
-		TEMPO_ENTRE_INTERACOES_LOOPS;
+		TEMPO_ENTRE_INTERACOES_LOOPS,
+		MENU_PRINCIPAL_SAIR_APLICACAO_PDV,
+		CODIGO_MENU_SAIR_APLICACAO;
 		@Override
 		public String toString() {
 			// TODO Auto-generated method stub
@@ -47,7 +49,14 @@ public class AUTPDVBaseComponent {
 				return "3";
 			}
 			case VOLTAR_CANCELAR:{
-				return "<#Esc>";
+				Byte keyEscape = 27;
+				return new String(new byte[] {keyEscape});
+			}
+			case MENU_PRINCIPAL_SAIR_APLICACAO_PDV:{
+				return "gggggggggg";
+			}
+			case CODIGO_MENU_SAIR_APLICACAO:{
+				return "<#9><#9><#9> <#9><#9><#9> <#9><#9><#9> <#9><#9><#9>  <#9><#9><#9>  <#9><#9><#9> <#9><#9><#9> <#9><#9><#9>";
 			}
 			}
 			return super.toString();
@@ -241,6 +250,16 @@ public class AUTPDVBaseComponent {
 
 			autPDVEnviarComando(AUT_PDV_OPTIONS.VOLTAR_CANCELAR);
 			
+			autPDVExecFuncSincronizada(new AUTPDVFunctionsSyncronized() {			
+				@Override
+				public boolean autStartPDVFunction() {
+					// TODO Auto-generated method stub
+					return autPDVStatusFechadoParcial();
+				}
+			});			
+			
+			System.out.println("PDV : AUT INFO : SAIDA DE OPERADOR REALIZADA FINALIZADA");
+			
 			return true;
 		}
 		catch(java.lang.Exception e) {
@@ -253,6 +272,127 @@ public class AUTPDVBaseComponent {
 		}
 	}
 
+	/**
+	 * 
+	 * Verifica se o sistema está exibindo a tela do PDV mostrando o menu principal de finalização do sistema
+	 * 
+	 * @return boolean - True caso o processo seja finalizado com sucesso, false caso contrário
+	 * 
+	 */
+	public boolean autPDVStatusSairAplicacao() {	
+		try {			
+			
+			AUT_AGENT_SILK4J.verifyAsset("PDV-STATUS-0009");
+			
+			System.out.println("PDV : AUT INFO: STATUS MEU PRINCIPAL PARA SAIR PDV : OK");
+
+			return true;
+		}
+		catch(java.lang.Exception e) {
+			System.out.println("PDV: AUT ERROR: STATUS MENU PRINCIPAL PARA  SAIR APLICACAO PDV");
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+			
+			return false;
+		}
+	}
+	
+	
+	/**
+	 * Verifica se o PDV se encontra online e ativo na area de trabalho
+	 * 
+	 * @return boolean - Caso o processo seja finalizado com sucesso, false caso contrário
+	 * 
+	 */
+	public boolean autPDVStatusOnline() {
+		try {
+			System.out.println("PDV: AUT INFO: STATUS ONLINE - ATIVO NA TELA");
+			AUT_AGENT_SILK4J.verifyAsset("PDV-STATUS-0000");		
+			return true;
+		}
+		catch(java.lang.Exception e) {
+			System.out.println("PDV: AUT ERROR: STATUS ONLINE - ATIVO NA TELA");
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+			
+			return false;
+		}
+	}
+	
+	/**
+	 * Verifica se o PDV se encontra online e ativo na area de trabalho
+	 * 
+	 * @return boolean - Caso o processo seja finalizado com sucesso, false caso contrário
+	 * 
+	 */
+	public boolean autPDVStatusConfirmarOpcaoSaidaAplicacao() {
+		try {
+			System.out.println("PDV: AUT INFO: STATUS CONFIRMAR SAIDA APLICACAO");
+			AUT_AGENT_SILK4J.verifyAsset("PDV-STATUS-0010");		
+			return true;
+		}
+		catch(java.lang.Exception e) {
+			System.out.println("PDV: AUT ERROR: STATUS CONFIRMAR SAIDA APLICACAO");
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+			
+			return false;
+		}
+	}
+	
+	
+	/**
+	 * Executa procedimentos para fechar aplicação PDV
+	 * 
+	 * 
+	 * @return boolean - True caso o procedimento seja executado com sucesso, false caso contrário
+	 * 
+	 */
+	public boolean autPDVFecharAplicacao() {
+		try {
+			
+			autPDVStatusOnline();
+			
+			autPDVExecFuncSincronizada(AUT_PDV_OPTIONS.MENU_PRINCIPAL_SAIR_APLICACAO_PDV, 4, new AUTPDVFunctionsSyncronized() {			
+				@Override
+				public boolean autStartPDVFunction() {
+					// TODO Auto-generated method stub
+					return autPDVStatusSairAplicacao();
+				}
+			});
+			
+			autPDVStatusSairAplicacao();
+			
+			autPDVExecFuncSincronizada("(\\<\\#\\d{1}\\>)+",AUT_PDV_OPTIONS.CODIGO_MENU_SAIR_APLICACAO, 4, new AUTPDVFunctionsSyncronized() {
+				
+				public boolean autValidacao() {
+					autPDVEnviarComando(AUT_PDV_OPTIONS.ENTER);
+					return autPDVStatusConfirmarOpcaoSaidaAplicacao();
+				}
+				
+				@Override
+				public boolean autStartPDVFunction() {
+					// TODO Auto-generated method stub
+					return autValidacao();
+				}
+			});
+			
+			autPDVEnviarComando(AUT_PDV_OPTIONS.ENTER);
+			
+			System.out.println("PDV : AUT INFO: EXECUTA PROCEDIMENTOS PARA FECHAR APLICAÇÃO");
+			
+			return true;
+		}
+		catch(java.lang.Exception e) {
+		
+			System.out.println("PDV : AUT ERROR: EXECUTA PROCEDIMENTO PARA FECHAR APLICAÇÃO");
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+			
+			return false;
+		}	
+	}
+	
 	/**
 	 * 
 	 * Executa uma funçao PDV em modo sincronizado
@@ -298,6 +438,37 @@ public class AUTPDVBaseComponent {
 				}
 				com.borland.silktest.jtf.Utils.sleep(tempoDelay * 1000);
 			}			
+		}
+		catch(com.borland.silktest.jtf.common.VerificationFailedException e) {
+
+		}
+	}
+
+	/**
+	 * 
+	 * Executa uma funçao PDV em modo sincronizado
+	 * 
+	 * 
+	 * @param functionPDV - funçao para execução
+	 * 
+	 */
+	public <TPDVFunction extends AUTPDVFunctionsSyncronized> void autPDVExecFuncSincronizada(String expressaoRegularSepadorValores,Object dadosEntrada,Integer tempoDelay,TPDVFunction functionPDV) {
+		try {
+
+			java.util.regex.Pattern padrao = java.util.regex.Pattern.compile(expressaoRegularSepadorValores);
+			java.util.regex.Matcher analise = padrao.matcher(dadosEntrada.toString());
+			
+			while(analise.find()) {
+				boolean bOk = false;
+				System.out.println(analise.group());
+				AUT_AGENT_SILK4J.<Control>find("PDV").click();
+				AUT_AGENT_SILK4J.<Control>find("PDV").typeKeys(analise.group());				
+				bOk = functionPDV.autStartPDVFunction();
+				if(bOk) {					
+					break;
+				}
+				com.borland.silktest.jtf.Utils.sleep(tempoDelay * 1000);				
+			}
 		}
 		catch(com.borland.silktest.jtf.common.VerificationFailedException e) {
 
@@ -405,6 +576,8 @@ public class AUTPDVBaseComponent {
 	 * @param comandoPDV - Comando definido previamente
 	 */
 	public <TComando extends java.lang.Enum<AUT_PDV_OPTIONS>> void autPDVEnviarComando(TComando comandoPDV) {
+		AUT_AGENT_SILK4J.<com.borland.silktest.jtf.Control>find("PDV").click();
+		AUT_AGENT_SILK4J.<com.borland.silktest.jtf.Control>find("PDV").click();
 		AUT_AGENT_SILK4J.<com.borland.silktest.jtf.Control>find("PDV").typeKeys(comandoPDV.toString());
 	}
 
