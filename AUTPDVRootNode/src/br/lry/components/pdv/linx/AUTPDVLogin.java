@@ -16,7 +16,6 @@ import com.borland.silktest.jtf.Desktop;
 
 public class AUTPDVLogin extends AUTPDVBaseComponent{
 
-	public boolean teste() {return true;}
 	@Test
 	public void autLogin() {
 		autStartLogin("951028487", "951028487");
