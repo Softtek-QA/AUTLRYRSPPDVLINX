@@ -20,7 +20,8 @@ public class AUTPDVLogin extends AUTPDVBaseComponent{
 	public void autLogin() {
 		autStartLogin("951028487", "951028487");
 		autPDVLogout("51028487", "51028487");
-		autPDVFecharAplicacao();		
+		autPDVFecharAplicacao();	
+		//	teste configuracao
 	}
 
 }
