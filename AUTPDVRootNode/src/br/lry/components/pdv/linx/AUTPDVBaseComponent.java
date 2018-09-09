@@ -17,7 +17,7 @@ import br.lry.components.pdv.linx.AUTPDVBaseComponent.AUT_PDV_OPTIONS;
  *
  */
 public class AUTPDVBaseComponent {
-	com.borland.silktest.jtf.Desktop AUT_AGENT_SILK4J = new com.borland.silktest.jtf.Desktop();
+	com.borland.silktest.jtf.Desktop AUT_AGENT_SILK4J = new com.borland.silktest.jtf.Desktop("192.168.0.115");
 	com.borland.silktest.jtf.BaseState AUT_AGENT_SILK4J_CONFIGURATION = new com.borland.silktest.jtf.BaseState();
 
 	public interface AUTPDVFunctionsSyncronized{
@@ -72,7 +72,7 @@ public class AUTPDVBaseComponent {
 	 */
 	public boolean autStartPDV() {
 		try {
-			AUT_AGENT_SILK4J = new Desktop();
+			AUT_AGENT_SILK4J = new Desktop("192.168.0.115");
 			AUT_AGENT_SILK4J_CONFIGURATION = new BaseState();
 			
 			System.out.println("PDV: AUT INFO: INICIALIZANDO LINX-PDV");
