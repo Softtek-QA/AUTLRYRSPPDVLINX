@@ -1,0 +1,13 @@
+<imageVerification version="1">
+  <locator></locator>
+  <matchAccuracy>100</matchAccuracy>
+  <verificationMode>Full</verificationMode>
+  <excludeAreas />
+  <clientAreaOnly>false</clientAreaOnly>
+  <failedLocation>
+    <x>0</x>
+    <y>0</y>
+    <width>0</width>
+    <height>0</height>
+  </failedLocation>
+</imageVerification>

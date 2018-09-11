@@ -17,8 +17,8 @@ import br.lry.components.pdv.linx.AUTPDVBaseComponent.AUT_PDV_OPTIONS;
  *
  */
 public class AUTPDVBaseComponent {
-	com.borland.silktest.jtf.Desktop AUT_AGENT_SILK4J = new com.borland.silktest.jtf.Desktop("192.168.0.115");
-	com.borland.silktest.jtf.BaseState AUT_AGENT_SILK4J_CONFIGURATION = new com.borland.silktest.jtf.BaseState();
+	public com.borland.silktest.jtf.Desktop AUT_AGENT_SILK4J = new com.borland.silktest.jtf.Desktop("192.168.0.115");
+	public com.borland.silktest.jtf.BaseState AUT_AGENT_SILK4J_CONFIGURATION = new com.borland.silktest.jtf.BaseState();
 
 	public interface AUTPDVFunctionsSyncronized{
 		public boolean autStartPDVFunction();
@@ -32,13 +32,22 @@ public class AUTPDVBaseComponent {
 		SAIDA_OPERADOR,
 		TEMPO_ENTRE_INTERACOES_LOOPS,
 		MENU_PRINCIPAL_SAIR_APLICACAO_PDV,
-		CODIGO_MENU_SAIR_APLICACAO;
+		CODIGO_MENU_SAIR_APLICACAO,
+		CONSULTA_PRECO_MATERIAL,
+		PAGAR_PEDIDO,
+		DEVOLUCAO_PEDIDO;
 		@Override
 		public String toString() {
 			// TODO Auto-generated method stub
 			switch(this) {
 			case ENTER:{
 				return "<#Enter>";
+			}
+			case PAGAR_PEDIDO:{
+				return "q";
+			}
+			case DEVOLUCAO_PEDIDO:{
+				return "D";
 			}
 			case ENTRADA_OPERADOR:{
 				return "11111111111111111111";
@@ -59,6 +68,9 @@ public class AUTPDVBaseComponent {
 			case CODIGO_MENU_SAIR_APLICACAO:{
 				return "<#9><#9><#9> <#9><#9><#9> <#9><#9><#9> <#9><#9><#9>  <#9><#9><#9>  <#9><#9><#9> <#9><#9><#9> <#9><#9><#9>";
 			}
+			case CONSULTA_PRECO_MATERIAL:{
+				return "9";
+			}
 			}
 			return super.toString();
 		}
@@ -72,7 +84,6 @@ public class AUTPDVBaseComponent {
 	 */
 	public boolean autStartPDV() {
 		try {
-			AUT_AGENT_SILK4J = new Desktop("192.168.0.115");
 			AUT_AGENT_SILK4J_CONFIGURATION = new BaseState();
 			
 			System.out.println("PDV: AUT INFO: INICIALIZANDO LINX-PDV");
@@ -88,6 +99,204 @@ public class AUTPDVBaseComponent {
 		}
 	}
 
+	/**
+	 * Exibe mensagem solicitando número do pedido para pagamento
+	 * 
+	 * @return boolean - True caso a tela de pagamento de pedido esteja sendo exibida false caso contrário
+	 *
+	 */
+	public boolean autPDVStatusPagamentoPedido() {
+		try {
+			AUT_AGENT_SILK4J.verifyAsset("PDV-STATUS-0013");			
+			System.out.println("PDV : STATUS ATUAL : PAGAMENTO DE PEDIDO");
+			
+			return true;
+		}
+		catch(java.lang.Exception e) {
+			
+			System.out.println("PDV : ERROR : PAGAMENTO DE PEDIDO");
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+			
+			return false;
+		}
+	}
+
+	
+	/**
+	 * 
+	 * Exibe formulário com o detalhamento dos itens do pedido
+	 * 
+	 * @return boolean - True caso o processo seja finalizado com sucesso, false caso contrário
+	 * 
+	 */
+	public boolean autPDVStatusFormularioItensPedido() {
+		try {
+			AUT_AGENT_SILK4J.verifyAsset("PDV-STATUS-0015");			
+			System.out.println("PDV : STATUS ATUAL : DETALHAMENTO DE ITENS DO PEDIDO");
+			
+			return true;
+		}
+		catch(java.lang.Exception e) {
+			
+			System.out.println("PDV : ERROR : DETALHAMENTO DE ITENS DO PEDIDO");
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+			
+			return false;
+		}
+	}
+	
+	/**
+	 * 
+	 * Verifica se o sistema está exibindo a tela de confirmação de documentos
+	 * 
+	 * @return boolean - True caso a tela de confirmaçao de documento do cliente esteja sendo exibida false caso contrário
+	 * 
+	 */
+	public boolean autPDVStatusPedidosConfirmarDocumento() {
+		try {
+			
+			AUT_AGENT_SILK4J.verifyAsset("PDV-STATUS-0017");			
+			System.out.println("PDV : STATUS ATUAL : CONFIRMAR DOCUMENTO DO CLIENTE");
+			
+			return true;
+		}
+		catch(java.lang.Exception e) {
+			
+			System.out.println("PDV : ERROR : CONFIRMAR DOCUMENTO DO CLIENTE");
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+			
+			return false;
+		}
+	}
+	
+	public boolean autPDVStatusPedidosConfNumMaterial() {
+		try {
+			
+			AUT_AGENT_SILK4J.verifyAsset("PDV-STATUS-0018");			
+			System.out.println("PDV : STATUS ATUAL : CONFIRMAR DOCUMENTO DO CLIENTE");
+			
+			return true;
+		}
+		catch(java.lang.Exception e) {
+			
+			System.out.println("PDV : ERROR : CONFIRMAR DOCUMENTO DO CLIENTE");
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+			
+			return false;
+		}
+	}
+	
+	
+	public boolean autPDVStatusPedidosPagDinheiro() {
+		try {
+			
+			AUT_AGENT_SILK4J.verifyAsset("PDV-STATUS-0020");			
+			System.out.println("PDV : STATUS ATUAL : DEFINICAO FORMA PAGAMENTO");
+			
+			return true;
+		}
+		catch(java.lang.Exception e) {
+			
+			System.out.println("PDV : ERROR : DEFINICAO FORMA PAGAMENTO");
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+			
+			return false;
+		}
+	}
+
+	
+	public boolean autPDVStatusPedidosCumpomFiscal() {
+		try {
+			
+			AUT_AGENT_SILK4J.verifyAsset("PDV-STATUS-0019");			
+			System.out.println("PDV : STATUS ATUAL : DEFINICAO FORMA PAGAMENTO");
+			
+			return true;
+		}
+		catch(java.lang.Exception e) {
+			
+			System.out.println("PDV : ERROR : DEFINICAO FORMA PAGAMENTO");
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+			
+			return false;
+		}
+	}
+	
+	/**
+	 * 
+	 * Exibe tela de confirmação de inclusão de pedidos
+	 * 
+	 * @return boolean - True caso o processo seja finalizado com sucesso, false caso contrário
+	 * 
+	 */
+	public boolean autPDVStatusConfirmaInclusaoPedido() {
+		try {
+			AUT_AGENT_SILK4J.verifyAsset("PDV-STATUS-0014");			
+			System.out.println("PDV : STATUS ATUAL : CONFIRMACAO DE INCLUSAO PEDIDOS ADICIONAIS");
+			
+			return true;
+		}
+		catch(java.lang.Exception e) {
+			
+			System.out.println("PDV : ERROR : CONFIRMACAO DE INCLUSAO PEDIDOS ADICIONAIS");
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+			
+			return false;
+		}
+	}
+
+	/**
+	 * Exibe informações comerciais detalhadas do material selecionado
+	 * 
+	 * @return boolean - True caso a tela com detalhamento esteja sendo exibida false caso contrário
+	 *
+	 */
+	public boolean autPDVStatusConsultaMaterialDetalhamento() {
+		try {
+			AUT_AGENT_SILK4J.verifyAsset("PDV-STATUS-0012");			
+			System.out.println("PDV : STATUS ATUAL : CONSULTA MATERIAL - TELA RESUMO");
+			
+			return true;
+		}
+		catch(java.lang.Exception e) {
+			
+			System.out.println("PDV : ERROR : CONSULTA MATERIAL - TELA RESUMO");
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+			
+			return false;
+		}
+	}
+	/**
+	 * 
+	 * Verifica se o PDV se encontra com status: Consulta preço material
+	 * 
+	 * @return boolean - True caso a mensagem solicitando código do material para consulta false caso contrário
+	 * 
+	 */
+	public boolean autPDVStatusConsultaMaterial() {
+		try {
+						
+			AUT_AGENT_SILK4J.tryVerifyAsset("PDV-STATUS-0011");
+		
+			System.out.println("PDV: STATUS ATUAL : CONSULTA PRECO MATERIAL");
+			
+			return true;
+		}
+		catch(java.lang.Exception e) {
+			System.out.println("PDV: ERROR : CONSULTA PRECO MATERIAL");
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+			return false;
+		}
+	}
 	/**
 	 * Verifica se o PDV se encontra em status : Fechado parcial e disponível para entrada de novo usuário
 	 * 
@@ -137,6 +346,11 @@ public class AUTPDVBaseComponent {
 			e.printStackTrace();
 			return false;
 		}
+	}
+	
+	public void autSetHostExecutionService(String host) {
+		AUT_AGENT_SILK4J = new Desktop(host);
+		AUT_AGENT_SILK4J.executeBaseState(AUT_AGENT_SILK4J_CONFIGURATION);
 	}
 	
 	/**

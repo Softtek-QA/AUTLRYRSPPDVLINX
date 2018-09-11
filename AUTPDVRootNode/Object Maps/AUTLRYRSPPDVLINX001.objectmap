@@ -1,3 +1,5 @@
 <ObjectMap version="1">
-  <ObjectMapEntry id="PDV" locator="/Control[@caption='LINX - P2K']" />
+  <ObjectMapEntry id="PDV" locator="/Control[@caption='LINX - P2K']">
+    <ObjectMapEntry id="Formulario" locator="//Control[@windowClassName='GlassWndClass-GlassWindowClass-*']" />
+  </ObjectMapEntry>
 </ObjectMap>

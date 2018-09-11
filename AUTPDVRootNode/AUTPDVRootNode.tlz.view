@@ -1,11 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <TruelogSettings>
   <TreeState>
-    <ExpansionState>
-      MTExMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA=
-    </ExpansionState>
+    <ExpansionState>MTExMA==</ExpansionState>
   </TreeState>
   <LogfileInfo>
-    <LogfileTimestamp>1535783139</LogfileTimestamp>
+    <LogfileTimestamp>1536058517</LogfileTimestamp>
   </LogfileInfo>
 </TruelogSettings>
