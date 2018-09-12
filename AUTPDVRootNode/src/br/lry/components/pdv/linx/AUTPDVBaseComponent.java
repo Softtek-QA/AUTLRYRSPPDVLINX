@@ -35,11 +35,15 @@ public class AUTPDVBaseComponent {
 		CODIGO_MENU_SAIR_APLICACAO,
 		CONSULTA_PRECO_MATERIAL,
 		PAGAR_PEDIDO,
-		DEVOLUCAO_PEDIDO;
+		DEVOLUCAO_PEDIDO,
+		DEVOLUCAO_OPCAO_POR_PEDIDO;
 		@Override
 		public String toString() {
 			// TODO Auto-generated method stub
 			switch(this) {
+			case DEVOLUCAO_OPCAO_POR_PEDIDO:{
+				return "<#4>";
+			}
 			case ENTER:{
 				return "<#Enter>";
 			}
@@ -47,13 +51,13 @@ public class AUTPDVBaseComponent {
 				return "q";
 			}
 			case DEVOLUCAO_PEDIDO:{
-				return "D";
+				return "d";
 			}
 			case ENTRADA_OPERADOR:{
 				return "11111111111111111111";
 			}
 			case TEMPO_ENTRE_INTERACOES_LOOPS:{
-				return "6";
+				return "2";
 			}
 			case SAIDA_OPERADOR:{
 				return "3";
@@ -146,6 +150,184 @@ public class AUTPDVBaseComponent {
 			return false;
 		}
 	}
+	
+	
+	
+	
+	public boolean autPDVStatusDevolucaoMsgBoxConfirmacao() {
+		try {
+			AUT_AGENT_SILK4J.verifyAsset("PDV-STATUS-0027");			
+			System.out.println("PDV : STATUS ATUAL : MENSAGEM DE CONFIRMACAO DA DEVOLUCAO");
+			
+			return true;
+		}
+		catch(java.lang.Exception e) {
+			
+			System.out.println("PDV : ERROR : MENSAGEM DE CONFIRMACAO DA DEVOLUCAO");
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+			
+			return false;
+		}
+	}
+	
+	
+	
+	
+	public boolean autPDVStatusDevolucaoMsgConfirmacaoValeTroca() {
+		try {
+			AUT_AGENT_SILK4J.verifyAsset("PDV-STATUS-0029");			
+			System.out.println("PDV : STATUS ATUAL : MENSAGEM DE CONFIRMACAO VALE TROCA");
+			
+			return true;
+		}
+		catch(java.lang.Exception e) {
+			
+			System.out.println("PDV : ERROR : MENSAGEM DE CONFIRMACAO VALE TROCA");
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+			
+			return false;
+		}
+	}
+	public String autGetStringFormat(String input) {
+		StringBuffer strBuf = new StringBuffer();
+		String formatStr = "<#%s>";
+		for(Character car: input.toCharArray()) {
+			strBuf.append(String.format(formatStr,car));
+		}
+		
+		return strBuf.toString();
+	}
+	
+	
+	
+	
+	public boolean autPDVStatusDevolucaoReviewCadastro() {
+		try {
+			AUT_AGENT_SILK4J.verifyAsset("PDV-STATUS-0028");			
+			
+			System.out.println("PDV : STATUS ATUAL : TELA PARA REVISÃO DE CADASTRO");
+			
+			return true;
+		}
+		catch(java.lang.Exception e) {
+			
+			System.out.println("PDV : ERROR : TELA PARA REVISÃO DE CADASTRO");
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+			
+			return false;
+		}
+	}
+	
+	
+	public boolean autPDVStatusMenuInicialDevolucoesPedido() {
+		try {
+			AUT_AGENT_SILK4J.verifyAsset("PDV-STATUS-0021");			
+			System.out.println("PDV : STATUS ATUAL : MENU INICIAL OPCOES DEVOLUCOES");
+			
+			return true;
+		}
+		catch(java.lang.Exception e) {
+			
+			System.out.println("PDV : ERROR : MENU INICIAL OPCOES DEVOLUCOES");
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+			
+			return false;
+		}
+	}
+	
+	
+	public boolean autPDVStatusDevolucaoNumeroPedido() {
+		try {
+			AUT_AGENT_SILK4J.verifyAsset("PDV-STATUS-0023");			
+			System.out.println("PDV : STATUS ATUAL : NUMERO DO PEDIDO PARA DEVOLUCAO");
+			
+			return true;
+		}
+		catch(java.lang.Exception e) {
+			
+			System.out.println("PDV : ERROR : NUMERO DO PEDIDO PARA DEVOLUCAO");
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+			
+			return false;
+		}
+	}
+	
+	public boolean autPDVStatusDevolucaoNumeroLoja() {
+		try {
+			AUT_AGENT_SILK4J.verifyAsset("PDV-STATUS-0022");			
+			System.out.println("PDV : STATUS ATUAL : LOJA PARA DEVOLUCAO");
+			
+			return true;
+		}
+		catch(java.lang.Exception e) {
+			
+			System.out.println("PDV : ERROR : LOJA PARA DEVOLUCAO");
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+			
+			return false;
+		}
+	}
+	
+	
+	public boolean autPDVStatusDevolucaoFormItensSelect() {
+		try {
+			AUT_AGENT_SILK4J.verifyAsset("PDV-STATUS-0024");			
+			System.out.println("PDV : STATUS ATUAL : FORMULARIO SELECAO DE ITENS PARA DEVOLUCAO");
+			
+			return true;
+		}
+		catch(java.lang.Exception e) {
+			
+			System.out.println("PDV : ERROR : FORMULARIO SELECAO DE ITENS PARA DEVOLUCAO");
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+			
+			return false;
+		}
+	}
+	
+	
+	public boolean autPDVStatusDevolucaoFormQuantItem() {
+		try {
+			AUT_AGENT_SILK4J.verifyAsset("PDV-STATUS-0025");			
+			System.out.println("PDV : STATUS ATUAL : FORMULARIO PARA INCLUSAO DA QUANTIDADE DEVOLVIDA");
+			
+			return true;
+		}
+		catch(java.lang.Exception e) {
+			
+			System.out.println("PDV : ERROR : FORMULARIO PARA INCLUSAO DA QUANTIDADE DEVOLVIDA");
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+			
+			return false;
+		}
+	}
+	
+	
+	public boolean autPDVStatusDevolucaoFormMotDevolucao() {
+		try {
+			AUT_AGENT_SILK4J.verifyAsset("PDV-STATUS-0026");			
+			System.out.println("PDV : STATUS ATUAL : FORMULARIO MOTIVO DA DEVOLUCAO");
+			
+			return true;
+		}
+		catch(java.lang.Exception e) {
+			
+			System.out.println("PDV : ERROR : FORMULARIO MOTIVO DA DEVOLUCAO");
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+			
+			return false;
+		}
+	}
+	
 	
 	/**
 	 * 
@@ -708,7 +890,7 @@ public class AUTPDVBaseComponent {
 			autStartPDV();
 			autPDVStatusFechadoParcial();
 			
-			autPDVExecFuncSincronizada(AUT_PDV_OPTIONS.ENTRADA_OPERADOR,5,new AUTPDVFunctionsSyncronized() {				
+			autPDVExecFuncSincronizada(AUT_PDV_OPTIONS.ENTRADA_OPERADOR,4,new AUTPDVFunctionsSyncronized() {				
 				@Override
 				public boolean autStartPDVFunction() {
 					// TODO Auto-generated method stub

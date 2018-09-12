@@ -12,16 +12,16 @@
   </applicationConfiguration>
   <agentOptions>
     <entry>
-      <string>OPT_OBJECT_ENABLED_TIMEOUT</string>
-      <int>1200000</int>
-    </entry>
-    <entry>
-      <string>OPT_APPREADY_TIMEOUT</string>
-      <int>1200000</int>
+      <string>OPT_WPF_CUSTOM_CLASSES</string>
+      <list/>
     </entry>
     <entry>
       <string>OPT_TRUELOG_SCREENSHOT_MODE</string>
       <int>2</int>
+    </entry>
+    <entry>
+      <string>OPT_CUSTOM_CONTROLS_FILEPATH</string>
+      <string>customControls</string>
     </entry>
     <entry>
       <string>OPT_ASSET_NAMESPACE</string>
