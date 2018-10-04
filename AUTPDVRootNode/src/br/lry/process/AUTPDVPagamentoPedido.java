@@ -8,7 +8,10 @@ import br.lry.components.pdv.linx.AUTPDVBaseComponent.AUTPDVFunctionsSyncronized
 import br.lry.components.pdv.linx.AUTPDVBaseComponent.AUT_PDV_OPTIONS;
 import br.lry.components.pdv.linx.AUTPDVLogout;
 
+import org.junit.Test;
+
 import com.borland.silktest.jtf.Control;
+import com.borland.silktest.jtf.common.VerificationFailedException;
 import com.borland.silktest.jtf.common.types.MouseButton;
 import com.borland.silktest.jtf.common.types.Point;
 
@@ -20,6 +23,7 @@ import com.borland.silktest.jtf.common.types.Point;
  *
  */
 public class AUTPDVPagamentoPedido extends AUTPDVBaseComponent {
+	public boolean AUT_STATUS_EXECUTION = false;
 	/**
 	 * 
 	 * Executa procedimento de paramento padrão no PDV
@@ -28,8 +32,10 @@ public class AUTPDVPagamentoPedido extends AUTPDVBaseComponent {
 	 * 
 	 */
 	public void autStartProcess(java.util.HashMap<String, Object> parametrosConfiguracao) {
+		AUT_STATUS_EXECUTION = false;
+		//autResetStartPDV();
 		autSetHostExecutionService("127.0.0.1");
-		autStartLogin("951028487", "951028487");
+		//autStartLogin(parametrosConfiguracao.get("AUT_OPERADOR").toString(), parametrosConfiguracao.get("AUT_PWD_OPERADOR").toString());
 		autPDVStatusCaixaDisponível();
 		autPDVEnviarComando(AUT_PDV_OPTIONS.PAGAR_PEDIDO);
 
@@ -57,9 +63,9 @@ public class AUTPDVPagamentoPedido extends AUTPDVBaseComponent {
 		autPDVEnviarComando(AUT_PDV_OPTIONS.VOLTAR_CANCELAR);
 		com.borland.silktest.jtf.Utils.sleep(4000);
 		AUT_AGENT_SILK4J.<Control>find("PDV.Formulario").click(MouseButton.LEFT,new Point(321, 168));
-		com.borland.silktest.jtf.Utils.sleep(2000);
+		com.borland.silktest.jtf.Utils.sleep(5000);
 		AUT_AGENT_SILK4J.<Control>find("PDV.Formulario").typeKeys("<Enter>");
-		com.borland.silktest.jtf.Utils.sleep(2000);
+		com.borland.silktest.jtf.Utils.sleep(5000);
 		AUT_AGENT_SILK4J.<Control>find("PDV.Formulario").typeKeys("<Enter>");
 		autPDVEnviarComando(AUT_PDV_OPTIONS.ENTER);
 		
@@ -72,7 +78,7 @@ public class AUTPDVPagamentoPedido extends AUTPDVBaseComponent {
 		});
 		
 		AUT_AGENT_SILK4J.<Control>find("PDV").typeKeys("<Enter>");
-		com.borland.silktest.jtf.Utils.sleep(4000);
+		com.borland.silktest.jtf.Utils.sleep(5000);
 		AUT_AGENT_SILK4J.<Control>find("PDV").typeKeys("<Enter>");
 		autPDVExecFuncSincronizada(new AUTPDVFunctionsSyncronized() {
 			@Override
@@ -82,8 +88,13 @@ public class AUTPDVPagamentoPedido extends AUTPDVBaseComponent {
 			}
 		});
 		autPDVStatusPedidosConfNumMaterial();
-		autPDVEntradaDados(parametrosConfiguracao.get("AUT_MATERIAL"), 2);;
-		autPDVEnviarComando(AUT_PDV_OPTIONS.ENTER);
+		if(parametrosConfiguracao.get("AUT_FLUXO_SAIDA").toString().contains("REITRADA_EXTERNA_IMEDIATA")) {
+			AUT_AGENT_SILK4J.<Control>find("PDV").typeKeys("<Space>");
+		}
+		else {
+			autPDVEntradaDados(parametrosConfiguracao.get("AUT_MATERIAL"), 2);
+			autPDVEnviarComando(AUT_PDV_OPTIONS.ENTER);			
+		}
 		
 		autPDVExecFuncSincronizada(new AUTPDVFunctionsSyncronized() {
 			@Override
@@ -92,8 +103,10 @@ public class AUTPDVPagamentoPedido extends AUTPDVBaseComponent {
 				return autPDVStatusPedidosCumpomFiscal();
 			}
 		});
-		
-		AUT_AGENT_SILK4J.<Control>find("PDV").typeKeys("<Space>");
+	
+		if(!parametrosConfiguracao.get("AUT_FLUXO_SAIDA").toString().equals("REITRADA_EXTERNA_IMEDIATA")) {
+			AUT_AGENT_SILK4J.<Control>find("PDV").typeKeys("<Space>");
+		}
 		
 
 		autPDVExecFuncSincronizada(new AUTPDVFunctionsSyncronized() {
@@ -106,18 +119,12 @@ public class AUTPDVPagamentoPedido extends AUTPDVBaseComponent {
 		});
 		
 		AUT_AGENT_SILK4J.<Control>find("PDV").typeKeys("<F1>");
+				
+		com.borland.silktest.jtf.Utils.sleep(130 * 1000);
 		
-		autPDVExecFuncSincronizada(new AUTPDVFunctionsSyncronized() {
-			
-			@Override
-			public boolean autStartPDVFunction() {
-				// TODO Auto-generated method stub
-				return autPDVStatusCaixaDisponível();
-			}
-		});
-		
-		autPDVLogout("51028487", "51028487");		
+		AUT_STATUS_EXECUTION = true;
 	}
 		
+
 
 }

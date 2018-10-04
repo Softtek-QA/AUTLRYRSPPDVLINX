@@ -23,16 +23,16 @@
       <height>16</height>
     </rectangle>
     <rectangle>
-      <x>852</x>
-      <y>682</y>
-      <width>221</width>
-      <height>15</height>
-    </rectangle>
-    <rectangle>
       <x>1070</x>
       <y>656</y>
       <width>294</width>
       <height>72</height>
+    </rectangle>
+    <rectangle>
+      <x>839</x>
+      <y>686</y>
+      <width>242</width>
+      <height>36</height>
     </rectangle>
   </excludeAreas>
   <clientAreaOnly>false</clientAreaOnly>

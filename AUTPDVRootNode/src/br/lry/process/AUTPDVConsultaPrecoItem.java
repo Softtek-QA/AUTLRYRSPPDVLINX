@@ -21,8 +21,9 @@ public class AUTPDVConsultaPrecoItem extends AUTPDVBaseComponent {
 	 * 
 	 */
 	public void autStartProcess(java.util.HashMap<String,Object> parametrosConfiguracao) {
+		//autResetStartPDV();
 		autSetHostExecutionService("127.0.0.1");
-		autStartLogin("951028487", "951028487");
+		//autStartLogin(parametrosConfiguracao.get("AUT_OPERADOR").toString(), parametrosConfiguracao.get("AUT_PWD_OPERADOR").toString());
 		autPDVStatusConsultaMaterial();
 		autPDVEnviarComando(AUT_PDV_OPTIONS.CONSULTA_PRECO_MATERIAL);
 		com.borland.silktest.jtf.Utils.sleep(2000);
@@ -46,7 +47,7 @@ public class AUTPDVConsultaPrecoItem extends AUTPDVBaseComponent {
 		});
 		//com.borland.silktest.jtf.Utils.sleep(3000);
 		autPDVEnviarComando(AUT_PDV_OPTIONS.VOLTAR_CANCELAR);
-		autPDVLogout("51028487", "51028487");
+		//autPDVLogout(parametrosConfiguracao.get("AUT_COORDENADOR").toString(), parametrosConfiguracao.get("AUT_PWD_COORDENADOR").toString());
 	}
 		
 	/**

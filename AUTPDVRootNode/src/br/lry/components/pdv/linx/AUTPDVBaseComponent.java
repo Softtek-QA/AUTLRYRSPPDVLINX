@@ -6,6 +6,7 @@ package br.lry.components.pdv.linx;
 import com.borland.silktest.jtf.BaseState;
 import com.borland.silktest.jtf.Control;
 import com.borland.silktest.jtf.Desktop;
+import com.borland.silktest.jtf.common.VerificationFailedException;
 
 import br.lry.components.pdv.linx.AUTPDVBaseComponent.AUTPDVFunctionsSyncronized;
 import br.lry.components.pdv.linx.AUTPDVBaseComponent.AUT_PDV_OPTIONS;
@@ -54,7 +55,8 @@ public class AUTPDVBaseComponent {
 				return "d";
 			}
 			case ENTRADA_OPERADOR:{
-				return "11111111111111111111";
+				return "1";
+				//return "11111111111111111111";
 			}
 			case TEMPO_ENTRE_INTERACOES_LOOPS:{
 				return "2";
@@ -103,6 +105,23 @@ public class AUTPDVBaseComponent {
 		}
 	}
 
+	
+	public boolean autResetStartPDV() {
+		try {
+			
+			for(int c = 0; c < 5;c++) {
+				autPDVEnviarComando(AUT_PDV_OPTIONS.VOLTAR_CANCELAR);
+				//autPDVEnviarComando(AUT_PDV_OPTIONS.ENTER);
+				com.borland.silktest.jtf.Utils.sleep(3000);
+			}			
+			
+			return true;
+		}
+		catch(java.lang.Exception e) {			
+			
+			return false;
+		}
+	}
 	/**
 	 * Exibe mensagem solicitando número do pedido para pagamento
 	 * 
@@ -598,6 +617,8 @@ public class AUTPDVBaseComponent {
 		try {
 			
 			System.out.println("PDV: AUT INFO : EXECUTANDO PROCEDIMENTOS DE LOGOUT NO SISTEMA");
+			
+			
 			autPDVExecFuncSincronizada(new AUTPDVFunctionsSyncronized() {			
 				@Override
 				public boolean autStartPDVFunction() {
@@ -803,16 +824,22 @@ public class AUTPDVBaseComponent {
 	 */
 	public <TPDVFunction extends AUTPDVFunctionsSyncronized> void autPDVExecFuncSincronizada(TPDVFunction functionPDV) {
 		try {
-
+			int contLoop=0,contCiclos = 5;
 			boolean bOk = false;
 			bOk = functionPDV.autStartPDVFunction();
-			while(!bOk) {
+			while(!bOk && contLoop <= contCiclos) {
 				bOk = functionPDV.autStartPDVFunction();
 				com.borland.silktest.jtf.Utils.sleep(Integer.parseInt(AUT_PDV_OPTIONS.TEMPO_ENTRE_INTERACOES_LOOPS.toString()) * 1000);
+				contLoop++;
 			}
 		}
 		catch(com.borland.silktest.jtf.common.VerificationFailedException e) {
 
+		}
+		catch(java.lang.Exception e) {
+			System.out.println("AUT PDV : PESQUISA ELEMENTO : ");
+			System.out.println(e.getMessage());
+			e.printStackTrace();
 		}
 	}
 
@@ -887,6 +914,7 @@ public class AUTPDVBaseComponent {
 	 */
 	public boolean autStartLogin(String usuario,String senha) {
 		try {
+			autSetHostExecutionService("127.0.0.1");
 			autStartPDV();
 			autPDVStatusFechadoParcial();
 			
@@ -1060,16 +1088,15 @@ public class AUTPDVBaseComponent {
 	 */
 	public boolean autPDVStatusCaixaDisponível() {
 		try {
-
+			com.borland.silktest.jtf.Utils.sleep(5000);
+			
 			AUT_AGENT_SILK4J.verifyAsset("PDV-STATUS-0005");
 
 			System.out.println("PDV : AUT INFO: VALIDACAO STATUS CAIXA DISPONIVEL: OK");
 			
-			com.borland.silktest.jtf.Utils.sleep(5000);
-
 			return true;
 		}
-		catch(java.lang.Exception e) {
+		catch(VerificationFailedException e) {
 			System.out.println("PDV: AUT ERROR: VALIDACAO DE STATUS CAIXA DISPONIVEL");
 			System.out.println(e.getMessage());
 			e.printStackTrace();
@@ -1077,6 +1104,22 @@ public class AUTPDVBaseComponent {
 		}
 	}
 
+	public boolean autPDVStatusAprovacaoCompraNFCe() {
+		try {
+			AUT_AGENT_SILK4J.verifyAsset("PDV-APROV-COMPRA-0001");
+
+			System.out.println("PDV : AUT INFO: VALIDACAO STATUS APROVACAO COMPRA - PAG DINHEIRO NFCe: OK");
+			
+			return true;
+		}
+		catch(VerificationFailedException e) {
+			System.out.println("PDV: AUT ERROR: VALIDACAO STATUS APROVACAO COMPRA - PAG DINHEIRO NFCe");
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
 	public AUTPDVBaseComponent() {
 
 	}

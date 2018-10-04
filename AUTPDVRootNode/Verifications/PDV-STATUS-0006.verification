@@ -17,12 +17,6 @@
       <height>74</height>
     </rectangle>
     <rectangle>
-      <x>814</x>
-      <y>689</y>
-      <width>226</width>
-      <height>39</height>
-    </rectangle>
-    <rectangle>
       <x>0</x>
       <y>0</y>
       <width>1309</width>
@@ -33,6 +27,12 @@
       <y>52</y>
       <width>1364</width>
       <height>615</height>
+    </rectangle>
+    <rectangle>
+      <x>819</x>
+      <y>689</y>
+      <width>226</width>
+      <height>39</height>
     </rectangle>
   </excludeAreas>
   <clientAreaOnly>false</clientAreaOnly>
