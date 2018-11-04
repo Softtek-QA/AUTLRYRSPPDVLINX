@@ -26,6 +26,7 @@ public class AUTPDVConsultaPrecoItem extends AUTPDVBaseComponent {
 		//autStartLogin(parametrosConfiguracao.get("AUT_OPERADOR").toString(), parametrosConfiguracao.get("AUT_PWD_OPERADOR").toString());
 		autPDVStatusConsultaMaterial();
 		autPDVEnviarComando(AUT_PDV_OPTIONS.CONSULTA_PRECO_MATERIAL);
+		autSyncStatusDB();
 		com.borland.silktest.jtf.Utils.sleep(2000);
 		if(!autPDVStatusConsultaMaterial()) {
 			autPDVExecFuncSincronizada(new AUTPDVBaseComponent.AUTPDVFunctionsSyncronized() {			
@@ -37,6 +38,7 @@ public class AUTPDVConsultaPrecoItem extends AUTPDVBaseComponent {
 		}
 		autPDVEntradaDados(parametrosConfiguracao.get("AUT_MATERIAL"));
 		com.borland.silktest.jtf.Utils.sleep(2000);
+		autSyncStatusDB();
 		autPDVEnviarComando(AUT_PDV_OPTIONS.ENTER);
 		autPDVExecFuncSincronizada(new AUTPDVFunctionsSyncronized() {
 			@Override
@@ -45,6 +47,7 @@ public class AUTPDVConsultaPrecoItem extends AUTPDVBaseComponent {
 				return autPDVStatusConsultaMaterialDetalhamento();
 			}
 		});
+		autSyncStatusDB();
 		//com.borland.silktest.jtf.Utils.sleep(3000);
 		autPDVEnviarComando(AUT_PDV_OPTIONS.VOLTAR_CANCELAR);
 		//autPDVLogout(parametrosConfiguracao.get("AUT_COORDENADOR").toString(), parametrosConfiguracao.get("AUT_PWD_COORDENADOR").toString());

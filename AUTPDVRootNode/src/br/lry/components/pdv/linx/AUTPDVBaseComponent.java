@@ -17,15 +17,23 @@ import br.lry.components.pdv.linx.AUTPDVBaseComponent.AUT_PDV_OPTIONS;
  * @author Softtek-QA
  *
  */
-public class AUTPDVBaseComponent {
-	public com.borland.silktest.jtf.Desktop AUT_AGENT_SILK4J = new com.borland.silktest.jtf.Desktop("192.168.0.115");
+public class AUTPDVBaseComponent{
+	public com.borland.silktest.jtf.Desktop AUT_AGENT_SILK4J = new com.borland.silktest.jtf.Desktop();
 	public com.borland.silktest.jtf.BaseState AUT_AGENT_SILK4J_CONFIGURATION = new com.borland.silktest.jtf.BaseState();
-
+	public AUTPDVSyncProcess AUT_SYNC_PROCESS_EXECUTION = null;
+	
 	public interface AUTPDVFunctionsSyncronized{
 		public boolean autStartPDVFunction();
 	}
 
 
+	public static interface AUTPDVSyncProcess{
+		public void autInitProcess();
+		public void autStartProcess();
+		public void autEndProcess();
+		public void autStartParallelProcess();
+	}
+	
 	public enum AUT_PDV_OPTIONS{
 		VOLTAR_CANCELAR,
 		ENTER,
@@ -82,6 +90,21 @@ public class AUTPDVBaseComponent {
 		}
 	}
 
+	/**
+	 * 
+	 * Sincroniza o status da execução no banco de dados
+	 * 
+	 */
+	public void autSyncStatusDB() {
+		if(AUT_SYNC_PROCESS_EXECUTION==null) {
+			
+		}
+		else {
+			AUT_SYNC_PROCESS_EXECUTION.autStartProcess();
+			AUT_SYNC_PROCESS_EXECUTION.autStartParallelProcess();
+		}
+	}
+	
 	/**
 	 * Inicia a aplicação pdv
 	 * 
@@ -914,10 +937,10 @@ public class AUTPDVBaseComponent {
 	 */
 	public boolean autStartLogin(String usuario,String senha) {
 		try {
-			autSetHostExecutionService("127.0.0.1");
+			//autSetHostExecutionService("127.0.0.1");
 			autStartPDV();
 			autPDVStatusFechadoParcial();
-			
+			autSyncStatusDB();
 			autPDVExecFuncSincronizada(AUT_PDV_OPTIONS.ENTRADA_OPERADOR,4,new AUTPDVFunctionsSyncronized() {				
 				@Override
 				public boolean autStartPDVFunction() {
@@ -928,6 +951,7 @@ public class AUTPDVBaseComponent {
 			
 			autPDVStatusEntradaOperador();
 			autPDVEntradaDados(usuario);
+			autSyncStatusDB();
 			autPDVEnviarComando(AUT_PDV_OPTIONS.ENTER);		
 			autPDVExecFuncSincronizada(new AUTPDVFunctionsSyncronized() {				
 				@Override
@@ -937,8 +961,11 @@ public class AUTPDVBaseComponent {
 				}
 			});			
 			autPDVStatusSenhaOperador();
+			autSyncStatusDB();
 			autPDVEntradaDados(senha);
+			autSyncStatusDB();
 			autPDVEnviarComando(AUT_PDV_OPTIONS.ENTER);	
+			autSyncStatusDB();
 			autPDVExecFuncSincronizada(new AUTPDVFunctionsSyncronized() {				
 				@Override
 				public boolean autStartPDVFunction() {
@@ -948,7 +975,9 @@ public class AUTPDVBaseComponent {
 			});			
 			autPDVStatusFundoDeTroco();			
 			autPDVEntradaDados("10020");
-			autPDVEnviarComando(AUT_PDV_OPTIONS.ENTER);		
+			autSyncStatusDB();
+			autPDVEnviarComando(AUT_PDV_OPTIONS.ENTER);	
+			autSyncStatusDB();
 			autPDVExecFuncSincronizada(new AUTPDVFunctionsSyncronized() {				
 				@Override
 				public boolean autStartPDVFunction() {
