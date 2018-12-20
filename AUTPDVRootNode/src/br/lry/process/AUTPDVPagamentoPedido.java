@@ -36,8 +36,15 @@ public class AUTPDVPagamentoPedido extends AUTPDVBaseComponent {
 		//autResetStartPDV();
 		autSetHostExecutionService("127.0.0.1");
 		autSyncStatusDB();
+		autPDVEnviarComando(AUT_PDV_OPTIONS.VOLTAR_CANCELAR);
+		com.borland.silktest.jtf.Utils.sleep(2000);
+		autPDVEnviarComando(AUT_PDV_OPTIONS.VOLTAR_CANCELAR);
+		com.borland.silktest.jtf.Utils.sleep(2000);
 		//autStartLogin(parametrosConfiguracao.get("AUT_OPERADOR").toString(), parametrosConfiguracao.get("AUT_PWD_OPERADOR").toString());
 		autPDVStatusCaixaDisponível();
+		autPDVEnviarComando(AUT_PDV_OPTIONS.VOLTAR_CANCELAR);
+		autPDVEnviarComando(AUT_PDV_OPTIONS.VOLTAR_CANCELAR);
+		
 		autPDVEnviarComando(AUT_PDV_OPTIONS.PAGAR_PEDIDO);
 		autSyncStatusDB();
 		com.borland.silktest.jtf.Utils.sleep(4000);
@@ -51,9 +58,11 @@ public class AUTPDVPagamentoPedido extends AUTPDVBaseComponent {
 		}
 
 		autPDVEntradaDados(parametrosConfiguracao.get("AUT_PEDIDO"));
+		autSyncStatusDB();
 		com.borland.silktest.jtf.Utils.sleep(2000);
 		autPDVEnviarComando(AUT_PDV_OPTIONS.ENTER);
 		autSyncStatusDB();
+	
 		com.borland.silktest.jtf.Utils.sleep(2000);
 		autPDVExecFuncSincronizada(new AUTPDVBaseComponent.AUTPDVFunctionsSyncronized() {
 			@Override
@@ -61,7 +70,7 @@ public class AUTPDVPagamentoPedido extends AUTPDVBaseComponent {
 				return autPDVStatusConfirmaInclusaoPedido();
 			}
 		});
-		
+		autSyncStatusDB();
 		autPDVEnviarComando(AUT_PDV_OPTIONS.VOLTAR_CANCELAR);
 		com.borland.silktest.jtf.Utils.sleep(2000);
 		autSyncStatusDB();
@@ -125,7 +134,7 @@ public class AUTPDVPagamentoPedido extends AUTPDVBaseComponent {
 		
 		AUT_AGENT_SILK4J.<Control>find("PDV").typeKeys("<F1>");
 		autSyncStatusDB();
-		com.borland.silktest.jtf.Utils.sleep(130 * 1000);
+		com.borland.silktest.jtf.Utils.sleep(110 * 1000);
 		AUT_STATUS_EXECUTION = true;
 	}
 		

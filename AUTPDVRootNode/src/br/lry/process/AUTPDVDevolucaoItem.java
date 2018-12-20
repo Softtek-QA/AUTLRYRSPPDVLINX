@@ -32,8 +32,14 @@ public class AUTPDVDevolucaoItem extends AUTPDVBaseComponent {
 		//autResetStartPDV();
 		autSetHostExecutionService("127.0.0.1");
 		//autStartLogin(parametrosConfiguracao.get("AUT_OPERADOR").toString(), parametrosConfiguracao.get("AUT_PWD_OPERADOR").toString());
+		autPDVEnviarComando(AUT_PDV_OPTIONS.VOLTAR_CANCELAR);
+		com.borland.silktest.jtf.Utils.sleep(2000);
+		autPDVEnviarComando(AUT_PDV_OPTIONS.VOLTAR_CANCELAR);
+		com.borland.silktest.jtf.Utils.sleep(2000);
+		
 		autPDVStatusCaixaDisponível();
 		autSyncStatusDB();
+
 		autPDVEnviarComando(AUT_PDV_OPTIONS.DEVOLUCAO_PEDIDO);
 
 		autPDVExecFuncSincronizada(new AUTPDVFunctionsSyncronized() {
