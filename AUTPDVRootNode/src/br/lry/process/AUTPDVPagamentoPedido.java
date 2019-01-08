@@ -36,16 +36,24 @@ public class AUTPDVPagamentoPedido extends AUTPDVBaseComponent {
 		//autResetStartPDV();
 		autSetHostExecutionService("127.0.0.1");
 		autSyncStatusDB();
-		autPDVEnviarComando(AUT_PDV_OPTIONS.VOLTAR_CANCELAR);
-		com.borland.silktest.jtf.Utils.sleep(2000);
-		autPDVEnviarComando(AUT_PDV_OPTIONS.VOLTAR_CANCELAR);
-		com.borland.silktest.jtf.Utils.sleep(2000);
+		if(AUT_AGENT_SILK4J.<Control>find("PDV").exists("Formulario", 5000)) {
+			autPDVEnviarComando(AUT_PDV_OPTIONS.VOLTAR_CANCELAR);
+			com.borland.silktest.jtf.Utils.sleep(2000);
+			autPDVEnviarComando(AUT_PDV_OPTIONS.ENTER);
+			com.borland.silktest.jtf.Utils.sleep(1000);
+			autPDVEnviarComando(AUT_PDV_OPTIONS.VOLTAR_CANCELAR);
+			com.borland.silktest.jtf.Utils.sleep(1000);
+			autPDVEnviarComando(AUT_PDV_OPTIONS.VOLTAR_CANCELAR);
+		}		
+		
 		//autStartLogin(parametrosConfiguracao.get("AUT_OPERADOR").toString(), parametrosConfiguracao.get("AUT_PWD_OPERADOR").toString());
 		autPDVStatusCaixaDisponível();
 		autPDVEnviarComando(AUT_PDV_OPTIONS.VOLTAR_CANCELAR);
 		autPDVEnviarComando(AUT_PDV_OPTIONS.VOLTAR_CANCELAR);
 		
 		autPDVEnviarComando(AUT_PDV_OPTIONS.PAGAR_PEDIDO);
+		
+		
 		autSyncStatusDB();
 		com.borland.silktest.jtf.Utils.sleep(4000);
 		if (!autPDVStatusPagamentoPedido()) {
