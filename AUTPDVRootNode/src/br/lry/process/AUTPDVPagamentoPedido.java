@@ -39,7 +39,7 @@ public class AUTPDVPagamentoPedido extends AUTPDVBaseComponent {
 		
 		if(AUT_AGENT_SILK4J.<Control>find("PDV").exists("Formulario", 5000)) {			
 			AUT_AGENT_SILK4J.<Control>find("PDV.Formulario").typeKeys(AUT_PDV_OPTIONS.VOLTAR_CANCELAR.toString());
-			com.borland.silktest.jtf.Utils.sleep(4000);
+			com.borland.silktest.jtf.Utils.sleep(2000);
 			AUT_AGENT_SILK4J.<Control>find("PDV").typeKeys(AUT_PDV_OPTIONS.ENTER.toString());
 			com.borland.silktest.jtf.Utils.sleep(1000);
 			AUT_AGENT_SILK4J.<Control>find("PDV").typeKeys(AUT_PDV_OPTIONS.VOLTAR_CANCELAR.toString());
@@ -56,7 +56,7 @@ public class AUTPDVPagamentoPedido extends AUTPDVBaseComponent {
 		
 		
 		autSyncStatusDB();
-		com.borland.silktest.jtf.Utils.sleep(4000);
+		com.borland.silktest.jtf.Utils.sleep(2000);
 		if (!autPDVStatusPagamentoPedido()) {
 			autPDVExecFuncSincronizada(new AUTPDVBaseComponent.AUTPDVFunctionsSyncronized() {
 				@Override
@@ -143,7 +143,7 @@ public class AUTPDVPagamentoPedido extends AUTPDVBaseComponent {
 		
 		AUT_AGENT_SILK4J.<Control>find("PDV").typeKeys("<F1>");
 		autSyncStatusDB();
-		com.borland.silktest.jtf.Utils.sleep(110 * 1000);
+		com.borland.silktest.jtf.Utils.sleep(30 * 1000);
 		AUT_STATUS_EXECUTION = true;
 	}
 		
