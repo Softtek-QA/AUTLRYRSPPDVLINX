@@ -105,13 +105,34 @@ public class AUTPDVDevolucaoItem extends AUTPDVBaseComponent {
 		autSyncStatusDB();
 		
 		if(parametrosConfiguracao.get("AUT_FLUXO_SAIDA").toString().contains("REITRADA_EXTERNA_IMEDIATA")) {
-		
-		}
-		else {
-			AUT_AGENT_SILK4J.<Control>find("PDV.Formulario.FormQuantidade").typeKeys("1");
+			AUT_AGENT_SILK4J.<Control>find("PDV.Formulario.FormQuantidade").typeKeys(parametrosConfiguracao.get("AUT_QUANTIDADE_PADRAO_DEVOLUCAO").toString());
 
 			AUT_AGENT_SILK4J.<Control>find("PDV.Formulario.FormQuantidade").typeKeys("<Tab>");
+			com.borland.silktest.jtf.Utils.sleep(2 * 1000);
+			AUT_AGENT_SILK4J.<Control>find("PDV.Formulario.FormQuantidade").typeKeys("<Tab>");
+			
+			com.borland.silktest.jtf.Utils.sleep(2 * 1000);
+
+			AUT_AGENT_SILK4J.<Control>find("PDV.Formulario.FormQuantidade").typeKeys(AUT_PDV_OPTIONS.ENTER.toString());				
+		
+			com.borland.silktest.jtf.Utils.sleep(3 * 1000);
 			AUT_AGENT_SILK4J.<Control>find("PDV.Formulario.FormQuantidade").typeKeys(AUT_PDV_OPTIONS.ENTER.toString());		
+
+		}
+		else {
+			AUT_AGENT_SILK4J.<Control>find("PDV.Formulario.FormQuantidade").typeKeys(parametrosConfiguracao.get("AUT_QUANTIDADE_PADRAO_DEVOLUCAO").toString());
+
+			AUT_AGENT_SILK4J.<Control>find("PDV.Formulario.FormQuantidade").typeKeys("<Tab>");
+			com.borland.silktest.jtf.Utils.sleep(2 * 1000);
+			AUT_AGENT_SILK4J.<Control>find("PDV.Formulario.FormQuantidade").typeKeys("<Tab>");
+
+			com.borland.silktest.jtf.Utils.sleep(2 * 1000);
+			
+			AUT_AGENT_SILK4J.<Control>find("PDV.Formulario.FormQuantidade").typeKeys(AUT_PDV_OPTIONS.ENTER.toString());		
+		
+			com.borland.silktest.jtf.Utils.sleep(3 * 1000);
+			AUT_AGENT_SILK4J.<Control>find("PDV.Formulario.FormQuantidade").typeKeys(AUT_PDV_OPTIONS.ENTER.toString());		
+
 		}
 
 		autSyncStatusDB();
