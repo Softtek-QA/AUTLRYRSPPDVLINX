@@ -32,13 +32,13 @@ public class AUTPDVDevolucaoItem extends AUTPDVBaseComponent {
 		//autResetStartPDV();
 		autSetHostExecutionService("127.0.0.1");
 		//autStartLogin(parametrosConfiguracao.get("AUT_OPERADOR").toString(), parametrosConfiguracao.get("AUT_PWD_OPERADOR").toString());
-		autPDVEnviarComando(AUT_PDV_OPTIONS.VOLTAR_CANCELAR);
-		com.borland.silktest.jtf.Utils.sleep(2000);
-		autPDVEnviarComando(AUT_PDV_OPTIONS.VOLTAR_CANCELAR);
-		com.borland.silktest.jtf.Utils.sleep(2000);
-		
-		autPDVStatusCaixaDisponível();
-		autSyncStatusDB();
+//		autPDVEnviarComando(AUT_PDV_OPTIONS.VOLTAR_CANCELAR);
+//		com.borland.silktest.jtf.Utils.sleep(2000);
+//		autPDVEnviarComando(AUT_PDV_OPTIONS.VOLTAR_CANCELAR);
+//		com.borland.silktest.jtf.Utils.sleep(2000);
+//		
+//		autPDVStatusCaixaDisponível();
+//		autSyncStatusDB();
 
 		autPDVEnviarComando(AUT_PDV_OPTIONS.DEVOLUCAO_PEDIDO);
 
@@ -92,7 +92,7 @@ public class AUTPDVDevolucaoItem extends AUTPDVBaseComponent {
 
 		//AUT_AGENT_SILK4J.<Control>find("PDV.Formulario").click(MouseButton.LEFT, new Point(89, 122));
 		AUT_AGENT_SILK4J.<Control>find("PDV.Formulario").click(MouseButton.LEFT, new Point(22, 117));
-		autSyncStatusDB();
+		//autSyncStatusDB();
 		com.borland.silktest.jtf.Utils.sleep(8000);
 
 		autPDVExecFuncSincronizada(new AUTPDVFunctionsSyncronized() {
@@ -102,9 +102,9 @@ public class AUTPDVDevolucaoItem extends AUTPDVBaseComponent {
 				return autPDVStatusDevolucaoFormQuantItem();
 			}
 		});
-		autSyncStatusDB();
+		//autSyncStatusDB();
 		
-		if(parametrosConfiguracao.get("AUT_FLUXO_SAIDA").toString().contains("REITRADA_EXTERNA_IMEDIATA")) {
+		if(parametrosConfiguracao.get("AUT_FLUXO_SAIDA").toString().contains("RETIRADA_EXTERNA_IMEDIATA")) {
 		
 		}
 		else {
@@ -114,7 +114,7 @@ public class AUTPDVDevolucaoItem extends AUTPDVBaseComponent {
 			AUT_AGENT_SILK4J.<Control>find("PDV.Formulario.FormQuantidade").typeKeys(AUT_PDV_OPTIONS.ENTER.toString());		
 		}
 
-		autSyncStatusDB();
+		//autSyncStatusDB();
 		autPDVExecFuncSincronizada(new AUTPDVFunctionsSyncronized() {
 			@Override
 			public boolean autStartPDVFunction() {
@@ -122,7 +122,7 @@ public class AUTPDVDevolucaoItem extends AUTPDVBaseComponent {
 				return autPDVStatusDevolucaoFormMotDevolucao();
 			}
 		});
-		autSyncStatusDB();
+		//autSyncStatusDB();
 		com.borland.silktest.jtf.Utils.sleep(5000);
 		if(parametrosConfiguracao.get("AUT_FLUXO_SAIDA").toString().contains("REITRADA_EXTERNA_IMEDIATA")) {
 			AUT_AGENT_SILK4J.<Control>find("PDV.Formulario.FormMotivoDevolucao").click(MouseButton.LEFT,
@@ -150,7 +150,7 @@ public class AUTPDVDevolucaoItem extends AUTPDVBaseComponent {
 				new Point(273, 535));
 */
 		AUT_AGENT_SILK4J.<Control>find("PDV.Formulario.FormMotivoDevolucao").typeKeys(AUT_PDV_OPTIONS.ENTER.toString());
-		autSyncStatusDB();
+		//autSyncStatusDB();
 		autPDVExecFuncSincronizada(new AUTPDVFunctionsSyncronized() {
 			@Override
 			public boolean autStartPDVFunction() {
@@ -158,13 +158,13 @@ public class AUTPDVDevolucaoItem extends AUTPDVBaseComponent {
 				return autPDVStatusDevolucaoFormItensSelect();
 			}
 		});
-		autSyncStatusDB();
+		//autSyncStatusDB();
 		AUT_AGENT_SILK4J.<Control>find("PDV.Formulario").typeKeys(AUT_PDV_OPTIONS.ENTER.toString());
 		com.borland.silktest.jtf.Utils.sleep(3000);
 		AUT_AGENT_SILK4J.<Control>find("PDV.Formulario").typeKeys(AUT_PDV_OPTIONS.ENTER.toString());
 		com.borland.silktest.jtf.Utils.sleep(8000);
 		AUT_AGENT_SILK4J.<Control>find("PDV.Formulario").click(MouseButton.LEFT, new Point(356, 366));
-		autSyncStatusDB();
+		//autSyncStatusDB();
 		autPDVExecFuncSincronizada(new AUTPDVFunctionsSyncronized() {
 			@Override
 			public boolean autStartPDVFunction() {
@@ -172,10 +172,10 @@ public class AUTPDVDevolucaoItem extends AUTPDVBaseComponent {
 				return autPDVStatusDevolucaoMsgBoxConfirmacao();
 			}
 		});
-		autSyncStatusDB();
+		//autSyncStatusDB();
 		
 		AUT_AGENT_SILK4J.<Window>find("Window").typeKeys(AUT_PDV_OPTIONS.ENTER.toString());
-		autSyncStatusDB();
+		//autSyncStatusDB();
 		com.borland.silktest.jtf.Utils.sleep(8000);
 		autPDVExecFuncSincronizada(new AUTPDVFunctionsSyncronized() {
 			@Override
@@ -184,17 +184,17 @@ public class AUTPDVDevolucaoItem extends AUTPDVBaseComponent {
 				return autPDVStatusDevolucaoReviewCadastro();
 			}
 		});
-		autSyncStatusDB();
+		//autSyncStatusDB();
 		com.borland.silktest.jtf.Utils.sleep(2000);
 		AUT_AGENT_SILK4J.<Control>find("PDV.Formulario").click(MouseButton.LEFT, new Point(27, 270));
 		AUT_AGENT_SILK4J.<Control>find("PDV.Formulario")
-				.typeKeys(autGetStringFormat(parametrosConfiguracao.get("AUT_DD").toString()));
+				.typeKeys(autGetStringFormat(parametrosConfiguracao.get("AUT_DDD").toString()));
 		com.borland.silktest.jtf.Utils.sleep(2000);
 		AUT_AGENT_SILK4J.<Control>find("PDV.Formulario").click(MouseButton.LEFT, new Point(75, 269));
 		AUT_AGENT_SILK4J.<Control>find("PDV.Formulario")
 				.typeKeys(autGetStringFormat(parametrosConfiguracao.get("AUT_TELEFONE").toString()));
 		AUT_AGENT_SILK4J.<Control>find("PDV.Formulario").typeKeys(AUT_PDV_OPTIONS.ENTER.toString());
-		autSyncStatusDB();
+		//autSyncStatusDB();
 		com.borland.silktest.jtf.Utils.sleep(8000);
 		autPDVExecFuncSincronizada(new AUTPDVFunctionsSyncronized() {
 			@Override
@@ -203,7 +203,7 @@ public class AUTPDVDevolucaoItem extends AUTPDVBaseComponent {
 				return autPDVStatusDevolucaoMsgConfirmacaoValeTroca();
 			}
 		});
-		autSyncStatusDB();
+		//autSyncStatusDB();
 		AUT_AGENT_SILK4J.<Control>find("PDV.Formulario").typeKeys(AUT_PDV_OPTIONS.ENTER.toString());
 
 		com.borland.silktest.jtf.Utils.sleep(150 * 1000);
