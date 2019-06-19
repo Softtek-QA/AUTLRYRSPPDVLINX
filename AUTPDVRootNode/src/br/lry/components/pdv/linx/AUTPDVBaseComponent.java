@@ -528,24 +528,40 @@ public class AUTPDVBaseComponent{
 	 * 
 	 */
 	public boolean autPDVStatusFechadoParcial() {
-		try {
-			AUT_AGENT_SILK4J.verifyAsset("PDV-STATUS-0001");
-			System.out.println("PDV: AUT INFO : STATUS ATUAL : CAIXA FECHADO PARCIAL");
-//			com.borland.silktest.jtf.Utils.sleep(7000);
-//			AUT_AGENT_SILK4J.<Control>find("PDV").click();
-//			com.borland.silktest.jtf.Utils.sleep(2000);
-//			AUT_AGENT_SILK4J.<Control>find("PDV").click();
-//			com.borland.silktest.jtf.Utils.sleep(40000);
-//			AUT_AGENT_SILK4J.<Control>find("PDV").click();
+		
+		boolean status = false;
+		int cont = 1;
+		status = AUT_AGENT_SILK4J.tryVerifyAsset("PDV-STATUS-0001");
+		
+		while (!status && cont<10) {
+			com.borland.silktest.jtf.Utils.sleep(2000);
+			cont ++;
+			status = AUT_AGENT_SILK4J.tryVerifyAsset("PDV-STATUS-0001");		
+		} 
+		if(status)
 			return true;
-		}
-		catch(java.lang.Exception e) {
-			System.out.println("PDV: AUT ERROR: VERIFICAÇÃO DE STATUS PDV");
-			System.out.println(e.getMessage());
-			e.printStackTrace();
-
+		else
 			return false;
-		}
+		
+		
+//		try {
+//			AUT_AGENT_SILK4J.verifyAsset("PDV-STATUS-0001");
+//			System.out.println("PDV: AUT INFO : STATUS ATUAL : CAIXA FECHADO PARCIAL");
+////			com.borland.silktest.jtf.Utils.sleep(7000);
+////			AUT_AGENT_SILK4J.<Control>find("PDV").click();
+////			com.borland.silktest.jtf.Utils.sleep(2000);
+////			AUT_AGENT_SILK4J.<Control>find("PDV").click();
+////			com.borland.silktest.jtf.Utils.sleep(40000);
+////			AUT_AGENT_SILK4J.<Control>find("PDV").click();
+//			return true;
+//		}
+//		catch(java.lang.Exception e) {
+//			System.out.println("PDV: AUT ERROR: VERIFICAÇÃO DE STATUS PDV");
+//			System.out.println(e.getMessage());
+//			e.printStackTrace();
+//
+//			return false;
+//		}
 	}
 
 	/**
@@ -938,7 +954,7 @@ public class AUTPDVBaseComponent{
 	public boolean autStartLogin(String usuario,String senha) {
 		try {
 			autStartPDV();
-			//autPDVStatusFechadoParcial();
+			autPDVStatusFechadoParcial();
 			//autSyncStatusDB();
 			autPDVExecFuncSincronizada(AUT_PDV_OPTIONS.ENTRADA_OPERADOR,4,new AUTPDVFunctionsSyncronized() {				
 				@Override
@@ -1045,11 +1061,11 @@ public class AUTPDVBaseComponent{
 	 */
 	public boolean autPDVStatusEntradaOperador() {
 		try {
-
-			AUT_AGENT_SILK4J.verifyAsset("PDV-STATUS-0002");			
+			
+			AUT_AGENT_SILK4J.verifyAsset("PDV-STATUS-0002");		
 			
 			System.out.println("PDV : AUT INFO: VALIDACAO STATUS  ENTRADA OPERADOR: OK");
-
+			
 			return true;
 		}
 		catch(java.lang.Exception e) {
@@ -1144,6 +1160,23 @@ public class AUTPDVBaseComponent{
 			System.out.println("PDV: AUT ERROR: VALIDACAO STATUS APROVACAO COMPRA - PAG DINHEIRO NFCe");
 			System.out.println(e.getMessage());
 			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	public boolean autPDVStatusTipoPessoa() {
+		try {
+//			AUT_AGENT_SILK4J.verifyAsset("PDV-STATUS-0022");			
+//			System.out.println("PDV : STATUS ATUAL : LOJA PARA DEVOLUCAO");
+			
+			return true;
+		}
+		catch(java.lang.Exception e) {
+			
+			System.out.println("PDV : ERROR : LOJA PARA DEVOLUCAO");
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+			
 			return false;
 		}
 	}

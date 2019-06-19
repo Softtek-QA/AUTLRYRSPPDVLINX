@@ -52,7 +52,7 @@ public class AUTPDVDevolucaoItem extends AUTPDVBaseComponent {
 
 		AUT_AGENT_SILK4J.<Control>find("PDV").typeKeys(AUT_PDV_OPTIONS.DEVOLUCAO_OPCAO_POR_PEDIDO.toString());
 		AUT_AGENT_SILK4J.<Control>find("PDV").typeKeys(AUT_PDV_OPTIONS.ENTER.toString());
-		autSyncStatusDB();
+		//autSyncStatusDB();
 		
 		autPDVExecFuncSincronizada(new AUTPDVFunctionsSyncronized() {
 			@Override
@@ -65,7 +65,7 @@ public class AUTPDVDevolucaoItem extends AUTPDVBaseComponent {
 		autPDVEntradaDados(parametrosConfiguracao.get("AUT_LOJA_DEVOLUCAO"));
 
 		AUT_AGENT_SILK4J.<Control>find("PDV").typeKeys(AUT_PDV_OPTIONS.ENTER.toString());
-		autSyncStatusDB();
+		//autSyncStatusDB();
 		com.borland.silktest.jtf.Utils.sleep(7000);
 
 		autPDVExecFuncSincronizada(new AUTPDVFunctionsSyncronized() {
@@ -78,7 +78,7 @@ public class AUTPDVDevolucaoItem extends AUTPDVBaseComponent {
 
 		autPDVEntradaDados(parametrosConfiguracao.get("AUT_PEDIDO"));
 		AUT_AGENT_SILK4J.<Control>find("PDV").typeKeys(AUT_PDV_OPTIONS.ENTER.toString());
-		autSyncStatusDB();
+		//autSyncStatusDB();
 		com.borland.silktest.jtf.Utils.sleep(5000);
 
 		autPDVExecFuncSincronizada(new AUTPDVFunctionsSyncronized() {
@@ -124,7 +124,7 @@ public class AUTPDVDevolucaoItem extends AUTPDVBaseComponent {
 		});
 		//autSyncStatusDB();
 		com.borland.silktest.jtf.Utils.sleep(5000);
-		if(parametrosConfiguracao.get("AUT_FLUXO_SAIDA").toString().contains("REITRADA_EXTERNA_IMEDIATA")) {
+		if(parametrosConfiguracao.get("AUT_FLUXO_SAIDA").toString().contains("RETIRADA_EXTERNA_IMEDIATA")) {
 			AUT_AGENT_SILK4J.<Control>find("PDV.Formulario.FormMotivoDevolucao").click(MouseButton.LEFT,
 					new Point(96, 171));
 			com.borland.silktest.jtf.Utils.sleep(5000);			
@@ -185,6 +185,39 @@ public class AUTPDVDevolucaoItem extends AUTPDVBaseComponent {
 			}
 		});
 		//autSyncStatusDB();
+		
+		//Se estrangeiro
+		 	
+		if (parametrosConfiguracao.get("AUT_TIPO_PESSOA").toString().contains("ESTRANGEIRO")){
+		
+			autPDVExecFuncSincronizada(new AUTPDVFunctionsSyncronized() {
+				@Override
+				public boolean autStartPDVFunction() {
+					// TODO Auto-generated method stub
+					return autPDVStatusTipoPessoa();
+				}
+			});
+	
+			AUT_AGENT_SILK4J.<Control>find("PDV").typeKeys("3");
+			AUT_AGENT_SILK4J.<Control>find("PDV").typeKeys("2");
+			AUT_AGENT_SILK4J.<Control>find("PDV").typeKeys(AUT_PDV_OPTIONS.ENTER.toString());
+			
+			autPDVExecFuncSincronizada(new AUTPDVFunctionsSyncronized() {
+				@Override
+				public boolean autStartPDVFunction() {
+					// TODO Auto-generated method stub
+					return autPDVStatusPedidosConfirmarDocumento();
+				}
+			});
+
+			//verificar como inserir os dados 
+			//autPDVEntradaDados(parametrosConfiguracao.get("AUT_NUMERO_DOCUMENTO"));
+			AUT_AGENT_SILK4J.<Control>find("PDV").typeKeys(AUT_PDV_OPTIONS.ENTER.toString());
+			
+		}
+		//---
+		
+		
 		com.borland.silktest.jtf.Utils.sleep(2000);
 		AUT_AGENT_SILK4J.<Control>find("PDV.Formulario").click(MouseButton.LEFT, new Point(27, 270));
 		AUT_AGENT_SILK4J.<Control>find("PDV.Formulario")
