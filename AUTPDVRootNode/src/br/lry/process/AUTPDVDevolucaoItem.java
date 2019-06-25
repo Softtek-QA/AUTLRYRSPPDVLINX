@@ -32,13 +32,13 @@ public class AUTPDVDevolucaoItem extends AUTPDVBaseComponent {
 		//autResetStartPDV();
 		autSetHostExecutionService("127.0.0.1");
 		//autStartLogin(parametrosConfiguracao.get("AUT_OPERADOR").toString(), parametrosConfiguracao.get("AUT_PWD_OPERADOR").toString());
-//		autPDVEnviarComando(AUT_PDV_OPTIONS.VOLTAR_CANCELAR);
-//		com.borland.silktest.jtf.Utils.sleep(2000);
-//		autPDVEnviarComando(AUT_PDV_OPTIONS.VOLTAR_CANCELAR);
-//		com.borland.silktest.jtf.Utils.sleep(2000);
-//		
-//		autPDVStatusCaixaDisponível();
-//		autSyncStatusDB();
+		autPDVEnviarComando(AUT_PDV_OPTIONS.VOLTAR_CANCELAR);
+		com.borland.silktest.jtf.Utils.sleep(2000);
+		autPDVEnviarComando(AUT_PDV_OPTIONS.VOLTAR_CANCELAR);
+		com.borland.silktest.jtf.Utils.sleep(2000);
+		
+		autPDVStatusCaixaDisponível();
+		autSyncStatusDB();
 
 		autPDVEnviarComando(AUT_PDV_OPTIONS.DEVOLUCAO_PEDIDO);
 
@@ -104,7 +104,7 @@ public class AUTPDVDevolucaoItem extends AUTPDVBaseComponent {
 		});
 		//autSyncStatusDB();
 		
-		if(parametrosConfiguracao.get("AUT_FLUXO_SAIDA").toString().contains("RETIRADA_EXTERNA_IMEDIATA")) {
+		if(parametrosConfiguracao.get("AUT_FLUXO_SAIDA").toString().contains("RETIRA_EXTERNA_IMEDIATA")) {
 		
 		}
 		else {
@@ -124,7 +124,7 @@ public class AUTPDVDevolucaoItem extends AUTPDVBaseComponent {
 		});
 		//autSyncStatusDB();
 		com.borland.silktest.jtf.Utils.sleep(5000);
-		if(parametrosConfiguracao.get("AUT_FLUXO_SAIDA").toString().contains("RETIRADA_EXTERNA_IMEDIATA")) {
+		if(parametrosConfiguracao.get("AUT_FLUXO_SAIDA").toString().contains("RETIRA_EXTERNA_IMEDIATA")) {
 			AUT_AGENT_SILK4J.<Control>find("PDV.Formulario.FormMotivoDevolucao").click(MouseButton.LEFT,
 					new Point(96, 171));
 			com.borland.silktest.jtf.Utils.sleep(5000);			
@@ -134,12 +134,6 @@ public class AUTPDVDevolucaoItem extends AUTPDVBaseComponent {
 			AUT_AGENT_SILK4J.<Control>find("PDV.Formulario.FormMotivoDevolucao").typeKeys("<Down>");
 			com.borland.silktest.jtf.Utils.sleep(2000);
 			autSyncStatusDB();
-			/**
-			AUT_AGENT_SILK4J.<Control>find("PDV.Formulario.FormMotivoDevolucao").typeKeys("<Down>");
-			com.borland.silktest.jtf.Utils.sleep(2000);
-			AUT_AGENT_SILK4J.<Control>find("PDV.Formulario.FormMotivoDevolucao").typeKeys("<Down>");
-			com.borland.silktest.jtf.Utils.sleep(2000);		
-			**/	
 		}
 		else {
 		
@@ -173,17 +167,10 @@ public class AUTPDVDevolucaoItem extends AUTPDVBaseComponent {
 			}
 		});
 		//autSyncStatusDB();
-		
 		AUT_AGENT_SILK4J.<Window>find("Window").typeKeys(AUT_PDV_OPTIONS.ENTER.toString());
 		//autSyncStatusDB();
 		com.borland.silktest.jtf.Utils.sleep(8000);
-		autPDVExecFuncSincronizada(new AUTPDVFunctionsSyncronized() {
-			@Override
-			public boolean autStartPDVFunction() {
-				// TODO Auto-generated method stub
-				return autPDVStatusDevolucaoReviewCadastro();
-			}
-		});
+//RETIRADO DAQUI
 		//autSyncStatusDB();
 		
 		//Se estrangeiro
@@ -197,27 +184,45 @@ public class AUTPDVDevolucaoItem extends AUTPDVBaseComponent {
 					return autPDVStatusTipoPessoa();
 				}
 			});
-	
-			AUT_AGENT_SILK4J.<Control>find("PDV").typeKeys("3");
-			AUT_AGENT_SILK4J.<Control>find("PDV").typeKeys("2");
+						
+			com.borland.silktest.jtf.Utils.sleep(2000);
+			autPDVEnviarComando(AUT_PDV_OPTIONS.TIPO_CLIENTE_ESTRANGEIRO);
+			autPDVEntradaDados("2"); // Opção Passaporte
 			AUT_AGENT_SILK4J.<Control>find("PDV").typeKeys(AUT_PDV_OPTIONS.ENTER.toString());
+			
+			//verificar como inserir os dados 
+			com.borland.silktest.jtf.Utils.sleep(2000);
 			
 			autPDVExecFuncSincronizada(new AUTPDVFunctionsSyncronized() {
 				@Override
 				public boolean autStartPDVFunction() {
 					// TODO Auto-generated method stub
-					return autPDVStatusPedidosConfirmarDocumento();
+					return autPDVStatusInformePassaporte();
 				}
 			});
-
-			//verificar como inserir os dados 
-			//autPDVEntradaDados(parametrosConfiguracao.get("AUT_NUMERO_DOCUMENTO"));
-			AUT_AGENT_SILK4J.<Control>find("PDV").typeKeys(AUT_PDV_OPTIONS.ENTER.toString());
 			
+			String passaporte = parametrosConfiguracao.get("AUT_NUMERO_DOCUMENTO").toString();
+			
+			//String passaporteLetras = passaporte.substring(0, 2).toLowerCase();
+			//String passaporteLetra2 = passaporte.substring(1, 2).toLowerCase();
+			//String passaporteNumeros = passaporte.substring(2);
+						
+			autPDVEntradaDados2(passaporte.toLowerCase());	
+			AUT_AGENT_SILK4J.<Control>find("PDV").typeKeys(AUT_PDV_OPTIONS.ENTER.toString());
+
 		}
 		//---
 		
+		autPDVExecFuncSincronizada(new AUTPDVFunctionsSyncronized() {
+			@Override
+			public boolean autStartPDVFunction() {
+				// TODO Auto-generated method stub
+				System.out.println("GNOMO 6");
+				return autPDVStatusDevolucaoReviewCadastro();
+			}
+		});
 		
+		System.out.println("GNOMO 7");
 		com.borland.silktest.jtf.Utils.sleep(2000);
 		AUT_AGENT_SILK4J.<Control>find("PDV.Formulario").click(MouseButton.LEFT, new Point(27, 270));
 		AUT_AGENT_SILK4J.<Control>find("PDV.Formulario")
@@ -242,6 +247,7 @@ public class AUTPDVDevolucaoItem extends AUTPDVBaseComponent {
 		com.borland.silktest.jtf.Utils.sleep(150 * 1000);
 
 		AUT_STATUS_EXECUTION = true;
+		System.out.println("GNOMO 8");
 
 	}
 

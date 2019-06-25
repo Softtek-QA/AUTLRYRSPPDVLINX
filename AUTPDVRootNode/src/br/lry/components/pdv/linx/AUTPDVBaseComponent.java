@@ -45,7 +45,8 @@ public class AUTPDVBaseComponent{
 		CONSULTA_PRECO_MATERIAL,
 		PAGAR_PEDIDO,
 		DEVOLUCAO_PEDIDO,
-		DEVOLUCAO_OPCAO_POR_PEDIDO;
+		DEVOLUCAO_OPCAO_POR_PEDIDO,
+		TIPO_CLIENTE_ESTRANGEIRO;
 		@Override
 		public String toString() {
 			// TODO Auto-generated method stub
@@ -84,6 +85,9 @@ public class AUTPDVBaseComponent{
 			}
 			case CONSULTA_PRECO_MATERIAL:{
 				return "9";
+			}
+			case TIPO_CLIENTE_ESTRANGEIRO: {
+				return "<#3>"; 
 			}
 			}
 			return super.toString();
@@ -1026,7 +1030,14 @@ public class AUTPDVBaseComponent{
 			AUT_AGENT_SILK4J.<com.borland.silktest.jtf.Control>find("PDV").typeKeys(String.format(strFrt, c));			
 		}
 	}
-
+	
+	public void autPDVEntradaDados2(Object dados) {
+			
+		for(java.lang.Character c : dados.toString().toCharArray()) {
+			AUT_AGENT_SILK4J.<com.borland.silktest.jtf.Control>find("PDV").typeKeys(c.toString());			
+		}
+	}
+	
 	/**
 	 * 
 	 * Envia dados para PDV
@@ -1040,6 +1051,17 @@ public class AUTPDVBaseComponent{
 		for(java.lang.Character c : dados.toString().toCharArray()) {
 			AUT_AGENT_SILK4J.<com.borland.silktest.jtf.Control>find("PDV").typeKeys(String.format(strFrt, c),tempoDelayEntreTeclas * 1000);
 		}		
+	}
+	
+	/**
+	 * Envia comandos pré configurados para PDV
+	 * 
+	 * @param comandoPDV - Comando definido previamente
+	 */
+	public void autPDVEnviarComando(String comandoPDV) {
+		AUT_AGENT_SILK4J.<com.borland.silktest.jtf.Control>find("PDV").click();
+		AUT_AGENT_SILK4J.<com.borland.silktest.jtf.Control>find("PDV").click();
+		AUT_AGENT_SILK4J.<com.borland.silktest.jtf.Control>find("PDV").typeKeys(comandoPDV.toString());
 	}
 
 	/**
@@ -1167,13 +1189,31 @@ public class AUTPDVBaseComponent{
 	public boolean autPDVStatusTipoPessoa() {
 		try {
 //			AUT_AGENT_SILK4J.verifyAsset("PDV-STATUS-0022");			
-//			System.out.println("PDV : STATUS ATUAL : LOJA PARA DEVOLUCAO");
+			System.out.println("PDV : STATUS ATUAL : TIPO PESSOA");
 			
 			return true;
 		}
 		catch(java.lang.Exception e) {
 			
-			System.out.println("PDV : ERROR : LOJA PARA DEVOLUCAO");
+			System.out.println("PDV : ERROR : TIPO PESSOA");
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+			
+			return false;
+		}
+	}
+	
+	public boolean autPDVStatusInformePassaporte() {
+		try {
+			AUT_AGENT_SILK4J.verifyAsset("PDV-STATUS-0031");
+			
+			System.out.println("PDV : STATUS ATUAL : INFORME PASSAPORTE");
+			
+			return true;
+		}
+		catch(java.lang.Exception e) {
+			
+			System.out.println("PDV : ERROR : INFORME PASSAPORTE");
 			System.out.println(e.getMessage());
 			e.printStackTrace();
 			

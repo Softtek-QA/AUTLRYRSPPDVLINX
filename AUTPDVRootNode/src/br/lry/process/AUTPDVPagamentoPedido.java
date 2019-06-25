@@ -111,7 +111,7 @@ public class AUTPDVPagamentoPedido extends AUTPDVBaseComponent {
 		});
 		//autSyncStatusDB();
 		//autPDVStatusPedidosConfNumMaterial();
-		if(parametrosConfiguracao.get("AUT_FLUXO_SAIDA").toString().contains("REITRADA_EXTERNA_IMEDIATA")) {
+		if(parametrosConfiguracao.get("AUT_FLUXO_SAIDA").toString().contains("RETIRA_EXTERNA_IMEDIATA")) {
 			AUT_AGENT_SILK4J.<Control>find("PDV").typeKeys("<Space>");
 		}
 		else {
@@ -127,7 +127,7 @@ public class AUTPDVPagamentoPedido extends AUTPDVBaseComponent {
 			}
 		});
 		//autSyncStatusDB();
-		if(!parametrosConfiguracao.get("AUT_FLUXO_SAIDA").toString().equals("REITRADA_EXTERNA_IMEDIATA")) {
+		if(!parametrosConfiguracao.get("AUT_FLUXO_SAIDA").toString().equals("RETIRA_EXTERNA_IMEDIATA")) {
 			AUT_AGENT_SILK4J.<Control>find("PDV").typeKeys("<Space>");
 		}
 		
