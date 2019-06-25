@@ -958,17 +958,20 @@ public class AUTPDVBaseComponent{
 	public boolean autStartLogin(String usuario,String senha) {
 		try {
 			autStartPDV();
-			autPDVStatusFechadoParcial();
-			//autSyncStatusDB();
-			autPDVExecFuncSincronizada(AUT_PDV_OPTIONS.ENTRADA_OPERADOR,4,new AUTPDVFunctionsSyncronized() {				
-				@Override
-				public boolean autStartPDVFunction() {
-					// TODO Auto-generated method stub
-					return autPDVStatusEntradaOperador();
-				}
-			});	
+			//autPDVStatusFechadoParcial();
 			
-			//autPDVStatusEntradaOperador();
+			autPDVAguardaTela("PDV-STATUS-0001");
+			
+			//autSyncStatusDB();
+//			autPDVExecFuncSincronizada(AUT_PDV_OPTIONS.ENTRADA_OPERADOR,4,new AUTPDVFunctionsSyncronized() {				
+//				@Override
+//				public boolean autStartPDVFunction() {
+//					// TODO Auto-generated method stub
+//					return autPDVStatusEntradaOperador();
+//				}
+//			});	
+			
+			autPDVStatusEntradaOperador();
 			autPDVEntradaDados(usuario);
 			//autSyncStatusDB();
 			autPDVEnviarComando(AUT_PDV_OPTIONS.ENTER);		
@@ -1220,6 +1223,31 @@ public class AUTPDVBaseComponent{
 			return false;
 		}
 	}
+	
+	/**
+	 * Verifica se o PDV se encontra em status : Fechado parcial e disponível para entrada de novo usuário
+	 * 
+	 * @return boolean - True o PDV esteja fechado parcialmente e disponível, false caso contrário
+	 * 
+	 */
+	public boolean autPDVAguardaTela(String imgTela) {
+		
+		boolean status = false;
+		int cont = 1;
+		status = AUT_AGENT_SILK4J.tryVerifyAsset(imgTela);
+		
+		while (!status && cont<20) {
+			com.borland.silktest.jtf.Utils.sleep(2000);
+			cont ++;
+			status = AUT_AGENT_SILK4J.tryVerifyAsset(imgTela);		
+		} 
+		if(status)
+			return true;
+		else {
+			AUT_AGENT_SILK4J.verifyAsset(imgTela);
+			return false;
+		}
+	}	
 	
 	public AUTPDVBaseComponent() {
 
