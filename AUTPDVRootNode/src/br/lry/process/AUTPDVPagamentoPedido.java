@@ -35,7 +35,6 @@ public class AUTPDVPagamentoPedido extends AUTPDVBaseComponent {
 		AUT_STATUS_EXECUTION = false;
 		//autResetStartPDV();
 		autSetHostExecutionService("127.0.0.1");
-		//autSyncStatusDB();
 		
 		if(AUT_AGENT_SILK4J.<Control>find("PDV").exists("Formulario", 5000)) {			
 			AUT_AGENT_SILK4J.<Control>find("PDV.Formulario").typeKeys(AUT_PDV_OPTIONS.VOLTAR_CANCELAR.toString());
@@ -47,106 +46,59 @@ public class AUTPDVPagamentoPedido extends AUTPDVBaseComponent {
 			AUT_AGENT_SILK4J.<Control>find("PDV").typeKeys(AUT_PDV_OPTIONS.VOLTAR_CANCELAR.toString());
 		}		
 		
-		//autStartLogin(parametrosConfiguracao.get("AUT_OPERADOR").toString(), parametrosConfiguracao.get("AUT_PWD_OPERADOR").toString());
-		//autPDVStatusCaixaDisponível();
+		autPDVAguardaTela("PDV-STATUS-0005");
 		autPDVEnviarComando(AUT_PDV_OPTIONS.VOLTAR_CANCELAR);
 		autPDVEnviarComando(AUT_PDV_OPTIONS.VOLTAR_CANCELAR);
 		
 		autPDVEnviarComando(AUT_PDV_OPTIONS.PAGAR_PEDIDO);
 		
-		
-		//autSyncStatusDB();
-		com.borland.silktest.jtf.Utils.sleep(4000);
-		if (!autPDVStatusPagamentoPedido()) {
-			autPDVExecFuncSincronizada(new AUTPDVBaseComponent.AUTPDVFunctionsSyncronized() {
-				@Override
-				public boolean autStartPDVFunction() {
-					return autPDVStatusPagamentoPedido();
-				}
-			});
-		}
-
+		autPDVAguardaTela("PDV-STATUS-0013");
 		autPDVEntradaDados(parametrosConfiguracao.get("AUT_PEDIDO"));
-		//autSyncStatusDB();
 		com.borland.silktest.jtf.Utils.sleep(2000);
 		autPDVEnviarComando(AUT_PDV_OPTIONS.ENTER);
-		//autSyncStatusDB();
 	
-		com.borland.silktest.jtf.Utils.sleep(2000);
-		autPDVExecFuncSincronizada(new AUTPDVBaseComponent.AUTPDVFunctionsSyncronized() {
-			@Override
-			public boolean autStartPDVFunction() {
-				return autPDVStatusConfirmaInclusaoPedido();
-			}
-		});
-		//autSyncStatusDB();
+		autPDVAguardaTela("PDV-STATUS-0014");
 		autPDVEnviarComando(AUT_PDV_OPTIONS.VOLTAR_CANCELAR);
 		com.borland.silktest.jtf.Utils.sleep(2000);
-		//autSyncStatusDB();
+
 		AUT_AGENT_SILK4J.<Control>find("PDV.Formulario").click(MouseButton.LEFT,new Point(321, 168));
 		com.borland.silktest.jtf.Utils.sleep(5000);
 		AUT_AGENT_SILK4J.<Control>find("PDV.Formulario").typeKeys("<Enter>");
 		com.borland.silktest.jtf.Utils.sleep(5000);
 		AUT_AGENT_SILK4J.<Control>find("PDV.Formulario").typeKeys("<Enter>");
 		autPDVEnviarComando(AUT_PDV_OPTIONS.ENTER);
-		//autSyncStatusDB();
-		autPDVExecFuncSincronizada(new AUTPDVFunctionsSyncronized() {
-			@Override
-			public boolean autStartPDVFunction() {
-				// TODO Auto-generated method stub
-				return autPDVStatusPedidosConfirmarDocumento();
-			}
-		});
-		//autSyncStatusDB();
-		AUT_AGENT_SILK4J.<Control>find("PDV").typeKeys("<Enter>");
-		com.borland.silktest.jtf.Utils.sleep(5000);
-		AUT_AGENT_SILK4J.<Control>find("PDV").typeKeys("<Enter>");
-		//autSyncStatusDB();
-		autPDVExecFuncSincronizada(new AUTPDVFunctionsSyncronized() {
-			@Override
-			public boolean autStartPDVFunction() {
-				// TODO Auto-generated method stub
-				return autPDVStatusPedidosConfNumMaterial();
-			}
-		});
-		//autSyncStatusDB();
-		//autPDVStatusPedidosConfNumMaterial();
-		if(parametrosConfiguracao.get("AUT_FLUXO_SAIDA").toString().contains("RETIRA_EXTERNA_IMEDIATA")) {
-			AUT_AGENT_SILK4J.<Control>find("PDV").typeKeys("<Space>");
-		}
-		else {
-			autPDVEntradaDados(parametrosConfiguracao.get("AUT_MATERIAL"), 2);
-			autPDVEnviarComando(AUT_PDV_OPTIONS.ENTER);			
-		}
-		//autSyncStatusDB();
-		autPDVExecFuncSincronizada(new AUTPDVFunctionsSyncronized() {
-			@Override
-			public boolean autStartPDVFunction() {
-				// TODO Auto-generated method stub
-				return autPDVStatusPedidosCumpomFiscal();
-			}
-		});
-		//autSyncStatusDB();
-		if(!parametrosConfiguracao.get("AUT_FLUXO_SAIDA").toString().equals("RETIRA_EXTERNA_IMEDIATA")) {
-			AUT_AGENT_SILK4J.<Control>find("PDV").typeKeys("<Space>");
-		}
-		
 
-		autPDVExecFuncSincronizada(new AUTPDVFunctionsSyncronized() {
+		if (parametrosConfiguracao.get("AUT_TIPO_PESSOA").toString().contains("ESTRANGEIRO")){
+			autPDVAguardaTela("PDV-STATUS-0018");
+			autPDVEntradaDados(parametrosConfiguracao.get("AUT_MATERIAL"));
+			autPDVEnviarComando(AUT_PDV_OPTIONS.ENTER);	
 			
-			@Override
-			public boolean autStartPDVFunction() {
-				// TODO Auto-generated method stub
-				return autPDVStatusPedidosPagDinheiro();
-			}
-		});
-		
+			autPDVAguardaTela("PDV-STATUS-0019");
+			AUT_AGENT_SILK4J.<Control>find("PDV").typeKeys("<Space>");
+
+		} else {
+			autPDVAguardaTela("PDV-STATUS-0017");	
+			AUT_AGENT_SILK4J.<Control>find("PDV").typeKeys("<Enter>");
+
+			autPDVAguardaTela("PDV-STATUS-0018");
+
+			if(parametrosConfiguracao.get("AUT_FLUXO_SAIDA").toString().contains("RETIRA_EXTERNA_IMEDIATA")) 
+				AUT_AGENT_SILK4J.<Control>find("PDV").typeKeys("<Space>");
+			else {
+				autPDVEntradaDados(parametrosConfiguracao.get("AUT_MATERIAL"), 2);
+				autPDVEnviarComando(AUT_PDV_OPTIONS.ENTER);	
+				
+				autPDVAguardaTela("PDV-STATUS-0019");
+				AUT_AGENT_SILK4J.<Control>find("PDV").typeKeys("<Space>");
+			}	
+		}
+
+		//autPDVAguardaTela("PDV-STATUS-0020");	
+		com.borland.silktest.jtf.Utils.sleep(5000);
 		AUT_AGENT_SILK4J.<Control>find("PDV").typeKeys("<F1>");
-		//autSyncStatusDB();
 		com.borland.silktest.jtf.Utils.sleep(110 * 1000);
+		
 		AUT_STATUS_EXECUTION = true;
 	}
 		
-
-
 }
