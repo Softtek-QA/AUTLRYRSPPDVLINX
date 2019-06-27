@@ -15,9 +15,6 @@
 	<classpathentry kind="lib" path="Resources/AUTJavaDerby/derbytools.jar"/>
 	<classpathentry kind="lib" path="Resources/AUTJavaH2/h2-1.4.196.jar"/>
 	<classpathentry kind="lib" path="Resources/AUTMySQL/mysql-connector-java-8.0.11.jar"/>
-	<classpathentry kind="lib" path="Resources/AUTSilk/com.borland.silktest.jtf.javadoc_18.5.0.9630.jar"/>
-	<classpathentry kind="lib" path="Resources/AUTSilk/com.borland.silktest.silk4j.doc_18.5.0.jar"/>
-	<classpathentry kind="lib" path="Resources/AUTSilk/com.borland.silktest.silk4j.jar"/>
 	<classpathentry kind="lib" path="Resources/AUTSilk/silktest-jtf-nodeps.jar"/>
 	<classpathentry kind="lib" path="Resources/SITEF/jclisitef.jar"/>
 	<classpathentry kind="lib" path="Resources/AUTJAVALIB/com-sun-tools-visualvm-api-caching.jar"/>
@@ -43,5 +40,6 @@
 	<classpathentry kind="lib" path="Resources/AUTJAVALIB/com-sun-tools-visualvm-tools.jar"/>
 	<classpathentry kind="lib" path="Resources/AUTJAVALIB/com-sun-tools-visualvm-uisupport.jar"/>
 	<classpathentry kind="src" path="Verifications"/>
+	<classpathentry kind="lib" path="C:/Users/Administrador/git/AUTSTKSolution/PJT001/AUTRootNode/Resources/AUTSilk/com.borland.silktest.jtf.javadoc_19.5.0.10279.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
