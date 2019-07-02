@@ -49,10 +49,11 @@ public class AUTPDVDevolucaoItem extends AUTPDVBaseComponent {
 		autPDVEntradaDados(parametrosConfiguracao.get("AUT_PEDIDO"));
 		AUT_AGENT_SILK4J.<Control>find("PDV").typeKeys(AUT_PDV_OPTIONS.ENTER.toString());
 
+		com.borland.silktest.jtf.Utils.sleep(5000);
+		
 		autPDVAguardaTela("PDV-STATUS-0024");
 		//AUT_AGENT_SILK4J.<Control>find("PDV.Formulario").click(MouseButton.LEFT, new Point(89, 122));
 		AUT_AGENT_SILK4J.<Control>find("PDV.Formulario").click(MouseButton.LEFT, new Point(22, 117));
-
 		
 		if(!parametrosConfiguracao.get("AUT_FLUXO_SAIDA").toString().contains("RETIRA_EXTERNA_IMEDIATA")) {
 			autPDVAguardaTela("PDV-STATUS-0025");
@@ -101,11 +102,14 @@ public class AUTPDVDevolucaoItem extends AUTPDVBaseComponent {
 			autPDVAguardaTela("PDV-STATUS-0031");
 			String passaporte = parametrosConfiguracao.get("AUT_NUMERO_DOCUMENTO").toString();
 			
-			//String passaporteLetras = passaporte.substring(0, 2).toLowerCase();
+			String passaporteLetras = passaporte.substring(0, 2).toLowerCase();
 			//String passaporteLetra2 = passaporte.substring(1, 2).toLowerCase();
-			//String passaporteNumeros = passaporte.substring(2);
+			String passaporteNumeros = passaporte.substring(2);
 						
-			autPDVEntradaDados2(passaporte.toLowerCase());	
+			//autPDVEntradaDados2(passaporte.toLowerCase());	
+			autPDVEntradaDados2(passaporteLetras.toLowerCase());
+			autPDVEntradaDados(passaporteNumeros);
+			
 			AUT_AGENT_SILK4J.<Control>find("PDV").typeKeys(AUT_PDV_OPTIONS.ENTER.toString());
 
 		}
@@ -120,11 +124,11 @@ public class AUTPDVDevolucaoItem extends AUTPDVBaseComponent {
 				.typeKeys(autGetStringFormat(parametrosConfiguracao.get("AUT_TELEFONE").toString()));
 		AUT_AGENT_SILK4J.<Control>find("PDV.Formulario").typeKeys(AUT_PDV_OPTIONS.ENTER.toString());
 		
-		//autPDVAguardaTela("PDV-STATUS-0029");
-		com.borland.silktest.jtf.Utils.sleep(5000);
+		//autPDVAguardaTela("PDV-STATUS-0029"); // É OUTRA JANELA E NAO RECONHECE
+		com.borland.silktest.jtf.Utils.sleep(8000);
 		AUT_AGENT_SILK4J.<Control>find("PDV.Formulario").typeKeys(AUT_PDV_OPTIONS.ENTER.toString());
 
-		com.borland.silktest.jtf.Utils.sleep(150 * 1000);
+		com.borland.silktest.jtf.Utils.sleep(5000);
 
 		AUT_STATUS_EXECUTION = true;
 

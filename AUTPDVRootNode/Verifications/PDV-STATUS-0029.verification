@@ -5,10 +5,10 @@
   <verificationMode>Full</verificationMode>
   <excludeAreas>
     <rectangle>
-      <x>39</x>
-      <y>107</y>
-      <width>345</width>
-      <height>132</height>
+      <x>0</x>
+      <y>0</y>
+      <width>415</width>
+      <height>202</height>
     </rectangle>
   </excludeAreas>
   <clientAreaOnly>false</clientAreaOnly>

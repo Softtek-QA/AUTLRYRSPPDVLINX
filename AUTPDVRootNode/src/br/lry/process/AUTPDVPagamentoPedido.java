@@ -68,31 +68,42 @@ public class AUTPDVPagamentoPedido extends AUTPDVBaseComponent {
 		AUT_AGENT_SILK4J.<Control>find("PDV.Formulario").typeKeys("<Enter>");
 		autPDVEnviarComando(AUT_PDV_OPTIONS.ENTER);
 
-		if (parametrosConfiguracao.get("AUT_TIPO_PESSOA").toString().contains("ESTRANGEIRO")){
-			autPDVAguardaTela("PDV-STATUS-0018");
-			autPDVEntradaDados(parametrosConfiguracao.get("AUT_MATERIAL"));
-			autPDVEnviarComando(AUT_PDV_OPTIONS.ENTER);	
+
+		if((parametrosConfiguracao.get("AUT_FLUXO_SAIDA").toString().contains("RETIRA_EXTERNA_IMEDIATA")) && 
+				(parametrosConfiguracao.get("AUT_TIPO_PESSOA").toString().contains("ESTRANGEIRO"))){
 			
-			autPDVAguardaTela("PDV-STATUS-0019");
-			AUT_AGENT_SILK4J.<Control>find("PDV").typeKeys("<Space>");
-
-		} else {
-			autPDVAguardaTela("PDV-STATUS-0017");	
-			AUT_AGENT_SILK4J.<Control>find("PDV").typeKeys("<Enter>");
+			//autPDVAguardaTela("PDV-STATUS-0017");	
+			//AUT_AGENT_SILK4J.<Control>find("PDV").typeKeys("<Enter>");
 
 			autPDVAguardaTela("PDV-STATUS-0018");
-
-			if(parametrosConfiguracao.get("AUT_FLUXO_SAIDA").toString().contains("RETIRA_EXTERNA_IMEDIATA")) 
-				AUT_AGENT_SILK4J.<Control>find("PDV").typeKeys("<Space>");
-			else {
-				autPDVEntradaDados(parametrosConfiguracao.get("AUT_MATERIAL"), 2);
+			AUT_AGENT_SILK4J.<Control>find("PDV").typeKeys("<Space>");
+				
+		} else {
+			if (parametrosConfiguracao.get("AUT_TIPO_PESSOA").toString().contains("ESTRANGEIRO")){
+				autPDVAguardaTela("PDV-STATUS-0018");
+				autPDVEntradaDados(parametrosConfiguracao.get("AUT_MATERIAL"));
 				autPDVEnviarComando(AUT_PDV_OPTIONS.ENTER);	
 				
 				autPDVAguardaTela("PDV-STATUS-0019");
 				AUT_AGENT_SILK4J.<Control>find("PDV").typeKeys("<Space>");
-			}	
+	
+			} else {
+				autPDVAguardaTela("PDV-STATUS-0017");	
+				AUT_AGENT_SILK4J.<Control>find("PDV").typeKeys("<Enter>");
+	
+				autPDVAguardaTela("PDV-STATUS-0018");
+	
+				if(parametrosConfiguracao.get("AUT_FLUXO_SAIDA").toString().contains("RETIRA_EXTERNA_IMEDIATA")) 
+					AUT_AGENT_SILK4J.<Control>find("PDV").typeKeys("<Space>");
+				else {
+					autPDVEntradaDados(parametrosConfiguracao.get("AUT_MATERIAL"));
+					autPDVEnviarComando(AUT_PDV_OPTIONS.ENTER);	
+					
+					autPDVAguardaTela("PDV-STATUS-0019");
+					AUT_AGENT_SILK4J.<Control>find("PDV").typeKeys("<Space>");
+				}	
+			}
 		}
-
 		//autPDVAguardaTela("PDV-STATUS-0020");	
 		com.borland.silktest.jtf.Utils.sleep(5000);
 		AUT_AGENT_SILK4J.<Control>find("PDV").typeKeys("<F1>");
