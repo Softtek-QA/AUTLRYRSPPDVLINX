@@ -49,7 +49,7 @@ public class AUTPDVDevolucaoItem extends AUTPDVBaseComponent {
 		autPDVEntradaDados(parametrosConfiguracao.get("AUT_PEDIDO"));
 		AUT_AGENT_SILK4J.<Control>find("PDV").typeKeys(AUT_PDV_OPTIONS.ENTER.toString());
 
-		com.borland.silktest.jtf.Utils.sleep(5000);
+		com.borland.silktest.jtf.Utils.sleep(8000);
 		
 		autPDVAguardaTela("PDV-STATUS-0024");
 		//AUT_AGENT_SILK4J.<Control>find("PDV.Formulario").click(MouseButton.LEFT, new Point(89, 122));
